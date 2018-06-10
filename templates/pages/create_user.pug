@@ -1,0 +1,28 @@
+extends ../layout/default
+
+block vars
+  -
+    var page = {title: "comics"};
+
+block vendors
+  link(rel="stylesheet", href="stylesheets/style.css")
+
+block scripts
+  script(src="javascripts/createUser.js")
+
+block content
+  +b.MAIN.content
+    +b.FORM.sing-up(method="POST")
+      +e.P
+        +e.LABEL.label Username
+        +e.INPUT.username#username-input(name="username")
+      +e.P
+        +e.LABEL.label Password
+        +e.INPUT.password#password-input(name="password", type="password")
+      +e.P
+        +e.LABEL.label User image
+        +e.INPUT.image#user-picture-input(name="image", type="file")
+      +e.P
+        //-- +e.INPUT(type="submit", value="sign up")
+        button submits
+        
