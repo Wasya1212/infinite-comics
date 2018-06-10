@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Movies</title>
+  <link rel="stylesheet" href="stylesheets/normalize.css">
+  <link rel="stylesheet" href="libs/slick-1.8.0/slick/slick.css">
+  <link rel="stylesheet" href="stylesheets/slick-theme.css">
+  <link rel="stylesheet" href="stylesheets/fonts.css">
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="stylesheets/movies.css">
+  <link rel="stylesheet" href="stylesheets/filter.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header__logo">
+      <a href="index.html"><img src="images/logo/logo.png" alt="my-site.com"></a>
+    </div>
+    <nav class="header__navigation">
+      <a href="characters.html" class="item"><span>characters</span></a>
+      <a href="comics.html" class="item"><span>comics</span></a>
+      <a href="movies.html" class="item"><span>movies</span></a>
+      <a href="tv.html" class="item"><span>tv</span></a>
+      <a href="news.html" class="item"><span>news</span></a>
+      <a href="index.html" class="item"><span>shop</span></a>
+    </nav>
+  </header>
+  <main class="content">
+    <aside class="filter">
+      <form action="" class="filter__search">
+        <section class="filter-parameters">
+          <fieldset class="studio">
+            <legend>Studio</legend>
+            <p>
+              <input type="checkbox" id="marvel-comics-cbx" class="inp-cbx" style="display: none">
+              <label for="marvel-comics-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>Marvel Comics</span>
+              </label>
+            </p>
+            <p>
+              <input type="checkbox" id="dc-comics-cbx" class="inp-cbx" style="display: none">
+              <label for="dc-comics-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>DC Comics</span>
+              </label>
+            </p>
+            <p>
+              <input type="checkbox" id="disney-comics-cbx" class="inp-cbx" style="display: none">
+              <label for="disney-comics-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>Disney Comics</span>
+              </label>
+            </p>
+            <p>
+              <input type="checkbox" id="mirage-studios-cbx" class="inp-cbx" style="display: none">
+              <label for="mirage-studios-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>Mirage Studios</span>
+              </label>
+            </p>
+            <p>
+              <input type="checkbox" id="other-studio-cbx" class="inp-cbx" style="display: none">
+              <label for="other-studio-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>Other</span>
+              </label>
+            </p>
+          </fieldset>
+          <fieldset>
+            <legend>Sex</legend>
+            <p>
+              <input type="checkbox" id="male-cbx" class="inp-cbx" style="display: none">
+              <label for="male-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>Male</span>
+              </label>
+            </p>
+            <p>
+              <input type="checkbox" id="female-cbx" class="inp-cbx" style="display: none">
+              <label for="female-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>Female</span>
+              </label>
+            </p>
+            <p>
+              <input type="checkbox" id="other-sex-cbx" class="inp-cbx" style="display: none">
+              <label for="other-sex-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>Other</span>
+              </label>
+            </p>
+          </fieldset>
+          <fieldset>
+            <legend>Rase</legend>
+            <p>
+              <input type="checkbox" id="earth-rase-cbx" class="inp-cbx" style="display: none">
+              <label for="earth-rase-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>Earth</span>
+              </label>
+            </p>
+            <p>
+              <input type="checkbox" id="alien-rase-cbx" class="inp-cbx" style="display: none">
+              <label for="alien-rase-cbx" class="cbx">
+                <span>
+                  <svg width="12px" height="10px" viewBox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+                </span>
+                <span>Alien</span>
+              </label>
+            </p>
+          </fieldset>
+        </section>
+      </form>
+    </aside>
+    <article class="movies-wrap">
+      <div class="intro">
+        <div class="poster">
+          <picture class="poster__picture"><img src="images/movie-poster-1.jpg" alt="movie-poster-1"></picture>
+          <div class="info">
+            <p class="poster__title">Avengers: Infinity War</p>
+            <p class="poster__description">Avengers: Infinity War is a 2018 American superhero film based on the Marvel Comics superhero team the Avengers, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures. It is the sequel to 2012's The Avengers and 2015's Avengers: Age of Ultron, and the nineteenth film in the Marvel Cinematic Universe (MCU). The film is directed by Anthony and Joe Russo, written by Christopher Markus and Stephen McFeely, and features an ensemble cast including Robert Downey Jr., Chris Hemsworth, Mark Ruffalo, Chris Evans, Scarlett Johansson, Benedict Cumberbatch, Don Cheadle, Tom Holland, Chadwick Boseman, Paul Bettany, Elizabeth Olsen, Anthony Mackie, Sebastian Stan, Danai Gurira, Letitia Wright, Dave Bautista, Zoe Saldana, Josh Brolin, and Chris Pratt.</p>
+          </div>
+        </div>
+        <div class="poster">
+          <picture class="poster__picture"><img src="images/movie-poster-2.jpg" alt="movie-poster-2"></picture>
+          <div class="info">
+            <p class="poster__title">Thor: Ragnarok</p>
+            <p class="poster__description">Thor: Ragnarok is a 2017 American superhero film based on the Marvel Comics character Thor, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures. It is the sequel to 2011's Thor and 2013's Thor: The Dark World, and is the seventeenth film in the Marvel Cinematic Universe (MCU). The film is directed by Taika Waititi from a screenplay by Eric Pearson and the writing team of Craig Kyle and Christopher Yost, and stars Chris Hemsworth as Thor alongside Tom Hiddleston, Cate Blanchett, Idris Elba, Jeff Goldblum, Tessa Thompson, Karl Urban, Mark Ruffalo, and Anthony Hopkins. In Thor: Ragnarok, Thor must escape the alien planet Sakaar in time to save Asgard from Hela and the impending Ragnarök.</p>
+          </div>
+        </div>
+        <div class="poster">
+          <picture class="poster__picture"><img src="images/movie-poster-3.jpg" alt="movie-poster-3"></picture>
+          <div class="info">
+            <p class="poster__title">Deadpool 2</p>
+            <p class="poster__description">Deadpool 2 is an upcoming American superhero film based on the Marvel Comics character Deadpool, distributed by 20th Century Fox. It is intended to be the eleventh installment in the X-Men film series, and a sequel to the 2016 film Deadpool. The film is directed by David Leitch from a script by Rhett Reese, Paul Wernick, and Ryan Reynolds, with Reynolds starring in the title role alongside Josh Brolin, Morena Baccarin, Julian Dennison, Zazie Beetz, T.J. Miller, Brianna Hildebrand, and Jack Kesy. In the film, Deadpool forms the team X-Force to protect a young mutant from Cable.</p>
+          </div>
+        </div>
+      </div>
+      <div class="movies-container">
+        <section class="recomended-movies">
+          <h3>Recomended movies</h3>
+          <div class="content">
+            <div class="movie">
+              <a href="#">
+                <picture class="movie__picture"><img src="images/recomended-movie-1.jpg" alt="recomended-movie-1"></picture>
+                <p class="movie__title">Batman Ninja</p>
+              </a>
+            </div>
+            <div class="movie">
+              <a href="#">
+                <picture class="movie__picture"><img src="images/recomended-movie-2.jpg" alt="recomended-movie-2"></picture>
+                <p class="movie__title">LEGO DC Comics Super Heroes - Justice League: Gotham City Breakout</p>
+              </a>
+            </div>
+            <div class="movie">
+              <a href="#">
+                <picture class="movie__picture"><img src="images/recomended-movie-3.jpg" alt="recomended-movie-3"></picture>
+                <p class="movie__title">Suicide Squad: Hell to Pay</p>
+              </a>
+            </div>
+            <div class="movie">
+              <a href="#">
+                <picture class="movie__picture"><img src="images/recomended-movie-4.jpg" alt="recomended-movie-4"></picture>
+                <p class="movie__title">Jonah Hex</p>
+              </a>
+            </div>
+            <div class="movie">
+              <a href="#">
+                <picture class="movie__picture"><img src="images/recomended-movie-5.jpg" alt="recomended-movie-5"></picture>
+                <p class="movie__title">Steel</p>
+              </a>
+            </div>
+          </div>
+        </section>
+        <section class="anounced-movies">
+          <h3>Anounced movies</h3>
+          <div class="anounced-movies__slider" slickDots="center" doted="true">
+            <picture><a href="#"><img src="images/anounced-movie-1.jpg" alt="anounced-movie-1"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-2.jpg" alt="anounced-movie-2"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-3.jpg" alt="anounced-movie-3"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-4.jpg" alt="anounced-movie-4"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-5.jpg" alt="anounced-movie-5"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-6.jpeg" alt="anounced-movie-6"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-8.jpg" alt="anounced-movie-8"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-9.jpg" alt="anounced-movie-9"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-10.jpg" alt="anounced-movie-10"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-11.png" alt="anounced-movie-11"></a></picture>
+            <picture><a href="#"><img src="images/anounced-movie-12.png" alt="anounced-movie-12"></a></picture>
+          </div>
+        </section>
+        <section class="movies">
+          <h3>Movies</h3>
+          <div class="content">
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-1.jpg" alt="movie-1"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Superman/Batman: Public Enemies (2009)</a></p>
+                <p class="text">The World’s Greatest Super Heroes become its most wanted criminals! When United States President Lex Luthor uses the oncoming trajectory of a Kryptonite asteroid to frame Superman and declare a $1 billion bounty on the heads of the Man of Steel and his "partner in crime," Batman, heroes and villains alike launch a relentless pursuit of Superman and Batman, who must unite -- and recruit help -- to stave off the onslaught, stop the asteroid and expose Luthor’s devious plot to take command of far more than North America. Based on the blockbuster comic series and graphic novel by Jeph Loeb and Ed McGuinness.</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-2.jpg" alt="movie-2"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Superman/Shazam!: The Return Of The Black Adam (2010)</a></p>
+                <p class="text">Chosen the world’s protector against the Seven Deadly Enemies of Man – pride, envy, greed, hatred, selfishness, laziness and injustice – young Billy Batson accepts his destiny as Captain Marvel. Battling alongside Superman against nefarious Black Adam, Billy soon discovers the challenge super heroes ultimately face: is it revenge or justice? For bounty hunter Jonah Hex and hard-boiled cop turned vengeance ghost The Spectre, getting their hands dirty is part of the job – maybe even the fun part. But Superman, Green Arrow and Black Canary follow an internal moral code to guide their actions. They know it’s easy to get lost in the darkness of the fight, especially when villans like Merlyn the Magnificent and Count Vertigo place no value on human life.</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-3.jpg" alt="movie-3"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Batman Begins (2005)</a></p>
+                <p class="text">Batman Begins explores the origins of the Batman legend and the Dark Knight's emergence as a force for good in Gotham. In the wake of his parents' murder, disillusioned industrial heir Bruce Wayne  travels the world seeking the means to fight injustice and turn fear against those who prey on the fearful. He returns to Gotham and unveils his alter-ego: Batman, a masked crusader who uses his strength, intellect and an array of high tech deceptions to fight the sinister forces that threaten the city.</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-4.jpg" alt="movie-4"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Wonder Woman (2017)</a></p>
+                <p class="text">Before she was Wonder Woman, she was Diana, princess of the Amazons, trained to be an unconquerable warrior. Raised on a sheltered island paradise, when an American pilot crashes on their shores and tells of a massive conflict raging in the outside world, Diana leaves her home, convinced she can stop the threat. Fighting alongside man in a war to end all wars, Diana will discover her full powers…and her true destiny.</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-5.jpg" alt="movie-5"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Batman: Return of the Caped Crusaders (2016)</a></p>
+                <p class="text">It’s back to the 1960s as Batman and Robin spring into action when Gotham City is threatened by a quartet of Batman’s most fiendish foes – Penguin, The Joker, Riddler and Catwoman. The four Super-Villains have combined their wicked talents to hatch a plot so nefarious that the Dynamic Duo will need to go to outer space (and back) to foil their arch enemies and restore order in Gotham City. It’s a truly fantastic adventure that will pit good against evil, good against good, evil against evil … and feature two words that exponentially raise the stakes for both sides: Replicator Ray. Holy Multiplication Tables, Batman!</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-6.jpg" alt="movie-6"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">LEGO DC Super Heroes: The Flash (2018)</a></p>
+                <p class="text">In LEGO DC Super Heroes: The Flash, Reverse-Flash manipulates the Speed Force to put the Flash into a time loop that forces him to relive the same day over and over again—with progressively disastrous results, including losing his powers and being fired by the Justice League. The Flash must find a way to restore time to its original path and finally apprehend his worst enemy before all is lost for the Flash…and the world!</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-7.jpg" alt="movie-7"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Watchmen (2009)</a></p>
+                <p class="text">Someone’s killing our super heroes. The year is 1985 and super heroes have banded together to respond to the murder of one of their own. They soon uncover a sinister plot that puts all of humanity in grave danger. The super heroes fight to stop the impending doom only to find themselves a target for annihilation. But, if our super heroes are gone, who will save us?</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-8.jpg" alt="movie-8"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Man of Steel (2013)</a></p>
+                <p class="text">From Warner Bros. Pictures and Legendary Pictures comes “Man of Steel,” starring Henry Cavill (“Immortals,” TV’s “The Tudors”) in the role of Clark Kent/Superman, under the direction of Zack Snyder (“300,” “Watchmen”).</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-9.jpg" alt="movie-9"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Batman v Superman: Dawn of Justice (2016)</a></p>
+                <p class="text">Fearing the actions of a god-like super hero left unchecked, Gotham City’s own formidable, forceful vigilante takes on Metropolis’s most revered, modern-day savior, while the world wrestles with what sort of hero it really needs. And with Batman and Superman at war with one another, a new threat quickly arises, putting mankind in greater danger than it’s ever known before.</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-10.jpg" alt="movie-10"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Green Lantern (2011)</a></p>
+                <p class="text">In a universe as vast as it is mysterious, an elite force of protectors for peace and justice has existed for centuries. They are the Green Lantern Corps. When a new enemy called Parallax threatens to destroy the Universe, their fate and the fate of Earth lie in the hands of the Corps' newest recruit, the first human ever selected: Hal Jordan (Ryan Reynolds). Bringing the popular superhero to the big screen for the first time, Green Lantern also stars Blake Lively (Gossip Girl), Peter Sarsgaard (Orphan), Mark Strong (Sherlock Holmes), Academy Award® nominee Angela Bassett and Academy Award® winner Tim Robbins.</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-11.jpg" alt="movie-11"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Teen Titans: The Judas Contract (2017)</a></p>
+                <p class="text">Led by Starfire, the Teen Titans – Beast Boy, Raven, Blue Beetle, Robin and the just-returned Nightwing – have built a cohesive team in their never-ending battle against evil; but their newest teammate, the mysterious and powerful Terra, may be altering that dynamic. Meanwhile, an ancient evil, Brother Blood, has awakened, and familiar foe Deathstroke is lurking in the shadows – both waiting to pounce. Ultimately, the Teen Titans will need to battle their enemies and their own doubts to unite and overcome the malicious forces around them in this twisting tale of intrigue, adventure and deception.</p>
+              </div>
+            </div>
+            <div class="movie">
+              <picture class="movie__picture"><a href="#"><img src="images/movie-12.jpg" alt="movie-12"></a></picture>
+              <div class="movie__description">
+                <p class="movie__title"><a href="#">Vixen: The Movie (2017)</a></p>
+                <p class="text">Originally from Africa, Mari McCabe grew up an orphan after her parents were killed by local greed, corruption and wanton violence. But Mari refuses to succumb to the terrors surrounding her. Inheriting her family's Tantu Totem, Mari can access the powers of animals – anything from the strength of a gorilla to the speed of a cheetah. As Vixen, she fights valiantly to protect the world from threats like those that claimed her family.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+  <footer class="footer">
+    <span class="copyright">© 2018 Impact Comics. All right reserved</span>
+    <div class="designed-by">
+      <span class="designed-by__name">Made & produced by <strong>Wasya1212</strong></span>
+      <img src="images/icons/designed-by.png" class="designed-by__icon">
+    </div>
+  </footer>
+  <script src="libs/jquery/jquery-3.3.1.min.js"></script>
+  <script src="libs/slick-1.8.0/slick/slick.min.js"></script>
+  <script src="javascripts/movies.js"></script>
+</body>
+</html>

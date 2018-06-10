@@ -1,0 +1,21 @@
+{
+  "name": "comics",
+  "version": "1.0.0",
+  "description": "a simple comics site",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "comics",
+    "marvel",
+    "dc"
+  ],
+  "author": "wasya1212",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "npm": "^6.0.1",
+    "pug": "^2.0.3"
+  }
+}

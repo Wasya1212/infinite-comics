@@ -1,0 +1,191 @@
+.content {
+  position: relative;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+
+.filter {
+  position: relative;
+  min-height: 100vh;
+  width: 250px;
+  border-right: 3px solid #161616;
+  /* border-right: 3px solid rgb(232, 167, 56); */
+}
+
+.comics-wrap {
+  width: 100%;
+  max-width: 100%;
+  order: 1;
+}
+
+.new-comics__title {
+  position: relative !important;
+  top: 0 !important;
+}
+
+.comics-wrap section h3 {
+  background-color: #161616;
+  margin-left: 100%;
+  transform: translateX(-100%);
+  /* width: 100%; */
+  /* text-align: center; */
+  display: inline;
+  white-space: nowrap;
+  color: white;
+  font-size: 28px;
+  font-family: Roboto, sans-serif;
+  text-transform: uppercase;
+  user-select: none;
+  cursor: default;
+  display: inline-block;
+  padding: 1rem 300px 1rem 2rem;
+}
+
+.comics-wrap section .content {
+  position: relative;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: stretch;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.new-comics {
+  position: relative;
+}
+
+.comics {
+  position: relative;
+  max-width: 300px;
+  margin-bottom: 1rem;
+}
+
+.comics:hover .comics__title {
+  color: #f72f02;
+}
+
+.comics:hover .comics__picture::after {
+  opacity: 1;
+}
+
+.comics__picture {
+  position: relative;
+  width: 300px;
+  height: 450px;
+  display: block;
+  overflow: hidden;
+}
+
+.comics__picture::after {
+  display: block;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: .3s opacity linear;
+}
+
+.comics__picture img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.comics__title {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  white-space: normal;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 0;
+  padding: .5rem 0;
+  height: 40px;
+  transition: .2s color ease-in-out;
+}
+
+.rating {
+  text-align: center;
+}
+
+.comics .comics__pages {
+  font-weight: bold;
+  font-size: 12px;
+  font-family: Roboto, sans-serif;
+  text-transform: uppercase;
+  color: rgb(43, 43, 43);
+  float: right;
+  cursor: default;
+}
+
+.comics .comics__view {
+  position: relative;
+  clear: both;
+  margin: 0;
+  padding: .5rem 0;
+}
+
+.comics .comics__view .comics__demo {
+  color: #2a448e;
+  text-decoration: underline;
+}
+
+.comics__sell-details {
+  position: relative;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comics__buy-btn {
+  position: relative;
+  padding: .5rem 1.5rem;
+  border-radius: 2px;
+  background-color: rgb(232, 167, 56);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: Roboto, sans-serif;
+}
+
+.comics__price {
+  font-weight: bold;
+  color: black;
+  font-family: Roboto, sans-serif;
+  font-size: 20px;
+}
+
+.top-sell, .coming-soon {
+  width: 100%;
+  background-color: #161616;
+}
+
+.top-sell h3, .coming-soon h3 {
+  text-align: center;
+  display: block;
+  width: 100% !important;
+  transform: none !important;
+  margin-left: 0 !important;
+}
+
+.top-sell .comics__title, .coming-soon .comics__title {
+  color: white;
+}
+
+.top-sell .comics__price, .coming-soon .comics__price {
+  color: rgb(232, 167, 56);
+}

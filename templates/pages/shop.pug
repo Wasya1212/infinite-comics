@@ -1,0 +1,81 @@
+extends ../layout/default
+
+block vars
+  -
+    var page = {title: "comics"};
+    
+    var newProducts = [
+      {title: "Brutal wolverine cup", link: "#", type: "cup", name: "product-7", imagePath: "images/comics-product-7.png", price: 35.65},
+      {title: "Marvel Capitan America belt", link: "#", type: "clothes", name: "product-8", imagePath: "images/comics-product-8.png", price: 21.99},
+      {title: "Spider-man trinket", link: "#", type: "other", name: "product-9", imagePath: "images/comics-product-9.png", price: 6.99},
+      {title: "DC X-man card game", link: "#", type: "game", name: "product-10", imagePath: "images/comics-product-10.png", price: 170.50},
+      {title: "DC universe bad girls figures", link: "#", type: "figure", name: "product-11", imagePath: "images/comics-product-11.png", price: 95.99},
+      {title: "DC Batman figure (large)", link: "#", type: "figure", name: "product-12", imagePath: "images/comics-product-12.png", price: 284.99},
+      {title: "Spider-man trinket", link: "#", type: "other", name: "product-9", imagePath: "images/comics-product-9.png", price: 6.99},
+      {title: "DC X-man card game", link: "#", type: "game", name: "product-10", imagePath: "images/comics-product-10.png", price: 170.50},
+      {title: "DC universe bad girls figures", link: "#", type: "figure", name: "product-11", imagePath: "images/comics-product-11.png", price: 95.99},
+      {title: "DC Batman figure (large)", link: "#", type: "figure", name: "product-12", imagePath: "images/comics-product-12.png", price: 284.99}
+    ];
+    
+    var popularProducts = [
+      {title: "Night Gotham Batman pajamas", link: "#", type: "clothes", name: "product-6", imagePath: "images/comics-product-6.png", price: 150.00},
+      {title: "Brutal wolverine cup", link: "#", type: "cup", name: "product-7", imagePath: "images/comics-product-7.png", price: 35.65},
+      {title: "Marvel Capitan America belt", link: "#", type: "clothes", name: "product-8", imagePath: "images/comics-product-8.png", price: 21.99},
+      {title: "Marvel movie collection figures", link: "#", type: "figure", name: "product-1", imagePath: "images/comics-product-1.png", price: 266.99},
+      {title: "DC daredevil figure", link: "#", type: "figure", name: "product-2", imagePath: "images/comics-product-2.png", price: 143.99},
+      {title: "DC supergirl girls figures", link: "#", type: "figure", name: "product-3", imagePath: "images/comics-product-3.png", price: 120.50},
+      {title: "Harley quinn figure", link: "#", type: "figure", name: "product-4", imagePath: "images/comics-product-4.png", price: 82.99},
+      {title: "Batman hat", link: "#", type: "clothes", name: "product-5", imagePath: "images/comics-product-5.png", price: 40.00},
+      {title: "Night Gotham Batman pajamas", link: "#", type: "clothes", name: "product-6", imagePath: "images/comics-product-6.png", price: 150.00},
+      {title: "Brutal wolverine cup", link: "#", type: "cup", name: "product-7", imagePath: "images/comics-product-7.png", price: 35.65},
+      {title: "Marvel Capitan America belt", link: "#", type: "clothes", name: "product-8", imagePath: "images/comics-product-8.png", price: 21.99},
+      {title: "Spider-man trinket", link: "#", type: "other", name: "product-9", imagePath: "images/comics-product-9.png", price: 6.99},
+      {title: "DC X-man card game", link: "#", type: "game", name: "product-10", imagePath: "images/comics-product-10.png", price: 170.50},
+      {title: "DC universe bad girls figures", link: "#", type: "figure", name: "product-11", imagePath: "images/comics-product-11.png", price: 95.99},
+      {title: "DC Batman figure (large)", link: "#", type: "figure", name: "product-12", imagePath: "images/comics-product-12.png", price: 284.99}
+    ];
+    
+    var recomendedProducts = [
+      {title: "Marvel movie collection figures", link: "#", type: "figure", name: "product-1", imagePath: "images/comics-product-1.png", price: 266.99},
+      {title: "DC daredevil figure", link: "#", type: "figure", name: "product-2", imagePath: "images/comics-product-2.png", price: 143.99},
+      {title: "DC supergirl girls figures", link: "#", type: "figure", name: "product-3", imagePath: "images/comics-product-3.png", price: 120.50},
+      {title: "Harley quinn figure", link: "#", type: "figure", name: "product-4", imagePath: "images/comics-product-4.png", price: 82.99},
+      {title: "Batman hat", link: "#", type: "clothes", name: "product-5", imagePath: "images/comics-product-5.png", price: 40.00}
+    ];
+
+block vendors
+  link(rel="stylesheet", href="stylesheets/style.css")
+  link(rel="stylesheet", href="stylesheets/shop.css")
+
+mixin product(product)
+  +b.SECTION.product
+    +e.HEADER
+      +e.P.title.title= product.title
+    +e.ASIDE.control
+      +e.btn(nohref, class="button fast-view")
+      +e.btn(nohref, class="button buy")
+    +e.DIV.preview-image(productType= product.type)
+      +e.A(href= product.link)
+        +e.IMG(src= product.imagePath, alt= product.name)
+    +e.SPAN.price= product.price
+
+block content
+  +b.MAIN.content
+    +e.ASIDE.filter
+      +filter()
+    +e.ARTICLE.goods-wrap.goods-wrap
+      +b.SECTION.new-goods
+        +e.H3.title New goods
+        +e.DIV.content.content
+          each product in newProducts
+            +product(product)
+      +b.SECTION.popular-goods
+        +e.H3.title Popular goods
+        +e.DIV.content.content
+          each product in popularProducts
+            +product(product)
+      +b.SECTION.recomended-goods
+        +e.H3.title Recomended goods
+        +e.DIV.content.content
+          each product in recomendedProducts
+            +product(product)

@@ -1,0 +1,93 @@
+.slick-arrow {
+  color: transparent;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+  overflow: hidden;
+  outline: none;
+}
+
+.slick-arrow::after {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  line-height: 45px;
+  font-size: 25px;
+  transform: scale(1, 2);
+  transition: all .3s ease-in-out;
+}
+
+.slick-arrow:hover:after {
+  background-color: rgba(0, 0, 0, 0.5);
+  transform: scale(1.3, 1.7);
+}
+
+.slick-next {
+  right: 1rem;
+}
+
+.slick-next::after {
+  content: '>';
+  text-indent: 2px;
+}
+
+.slick-prev {
+  left: 1rem;
+}
+
+.slick-prev::after {
+  content: '<';
+  text-indent: -2px;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+}
+
+.slick-dots li[role="presentation"] {
+  margin: .5rem;
+  list-style-type: none;
+  display: inline-block;
+}
+
+.slick-dots .slick-active button {
+  background-color: rgba(247, 47, 2, 0.75) !important;
+}
+
+.slick-dots li[role="presentation"] button {
+  color: transparent;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-color: #161616;
+  border: 1px solid #818181;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+*[slickDots="center"] .slick-dots {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+*[doted="true"] .slick-dots {
+  bottom: 1rem;
+}
+
+*[doted="true"] {
+  padding-bottom: 5rem;
+}

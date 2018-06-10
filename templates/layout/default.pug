@@ -1,0 +1,31 @@
+include ../_assets/bemto/bemto
+- set_bemto_settings({ modifier: "--" })
+
+include ../mixins/filter
+include ../mixins/star
+
+include ../partials/head
+include ../partials/header
+include ../partials/footer
+
+block vars
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    +head()
+    block vendors
+  +b.BODY.page
+    +e.DIV.wrap
+      +header([
+        {link: '/characters', title: 'characters'},
+        {link: '/comics', title: 'comics'},
+        {link: '/movies', title: 'movies'},
+        {link: '/tv', title: 'tv'},
+        {link: '/news', title: 'news'},
+        {link: '/shop', title: 'shop'},
+          ])
+      block content
+      +footer("Wasya1212")
+      block scripts
+  

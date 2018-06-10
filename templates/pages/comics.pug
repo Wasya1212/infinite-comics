@@ -1,0 +1,124 @@
+extends ../layout/default
+
+block vars
+  -
+    var page = {title: "comics"};
+    
+    var newComics = [
+      {type: 'free', title: "Critical Role: Vox Machina Origins #1", name: "new-comics-1", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-1.jpg"},
+      {type: 'free', title: "Saga Vol. 2", name: "new-comics-2", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-2.jpg"},
+      {type: 'free', title: "The Walking Dead Vol. 2: Miles Behind Us", name: "new-comics-3", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-3.jpg"},
+      {type: 'free', title: "Critical Role: Vox Machina Origins #2", name: "new-comics-4", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-4.jpg"},
+      {type: 'free', title: "Saga Vol. 3", name: "new-comics-5", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-5.jpg"},
+      {type: 'free', title: "Injustice: Gods Among Us #4", name: "new-comics-6", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-6.jpg"},
+      {type: 'free', title: "My Little Pony: Friendship Is Magic #3", name: "new-comics-7", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-7.jpg"},
+      {type: 'free', title: "Kick-Ass #7", name: "new-comics-8", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-8.jpg"},
+      {type: 'free', title: "Superman: Red Son #3 (of 3)", name: "new-comics-9", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-9.jpg"},
+      {type: 'free', title: "Thor #8", name: "new-comics-10", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/new-comics-10.jpg"}
+    ];
+    
+    var topSellComics = [
+      {type: 'sell', title: "Batman (2011-2016) #13", name: "cell-comics-1", link: "#", imagePath: "images/cell-comics-1.jpg", sellDetails: {price: 2.99}},
+      {type: 'sell', title: "Saga #3", name: "cell-comics-2", link: "#", imagePath: "images/cell-comics-2.jpg", sellDetails: {price: 2.99}},
+      {type: 'sell', title: "Darth Vader (2015-2016) #6", name: "cell-comics-3", link: "#", imagePath: "images/cell-comics-3.jpg", sellDetails: {price: 2.99}},
+      {type: 'sell', title: "Ms. Marvel (2014-2015) #1", name: "cell-comics-4", link: "#", imagePath: "images/cell-comics-4.jpg", sellDetails: {price: 2.99}},
+      {type: 'sell', title: "The Walking Dead #19", name: "cell-comics-5", link: "#", imagePath: "images/cell-comics-5.jpg", sellDetails: {price: 2.99}}
+    ];
+    
+    var topRatedComics = [
+      {type: 'sell', title: "Infinity Gauntlet", name: "top-rated-comics-1", link: "#", imagePath: "images/top-rated-comics-1.jpg", sellDetails: {price: 10.99}},
+      {type: 'sell', title: "Hunt For Wolverine: Adamantium Agenda (2018) #1", name: "top-rated-comics-2", link: "#", imagePath: "images/top-rated-comics-2.jpg", sellDetails: {price: 3.99}},
+      {type: 'free', title: "Venom (2018-) #1", name: "top-rated-comics-3", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/top-rated-comics-3.jpg"},
+      {type: 'free', title: "Domino (2018) #2", name: "top-rated-comics-4", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/top-rated-comics-4.jpg"},
+      {type: 'sell', title: "Monstress #16", name: "top-rated-comics-5", link: "#", imagePath: "images/top-rated-comics-5.jpg", sellDetails: {price: 3.99}},
+      {type: 'free', title: "Wayward #26", name: "top-rated-comics-6", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/top-rated-comics-6.jpg"},
+      {type: 'free', title: "The Immortal Men (2017-) #2", name: "top-rated-comics-7", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/top-rated-comics-7.jpg"},
+      {type: 'sell', title: "All Star Batman (2016-) Vol. 3: The First Ally", name: "top-rated-comics-8", link: "#", imagePath: "images/top-rated-comics-8.jpg", sellDetails: {price: 16.99}},
+      {type: 'free', title: "Old Man Logan (2016-) #39", name: "top-rated-comics-9", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/top-rated-comics-9.jpg"},
+      {type: 'sell', title: "All Star Batman (2016-) Vol. 3: The First Ally", name: "top-rated-comics-10", link: "#", imagePath: "images/top-rated-comics-10.jpg", sellDetails: {price: 5.99}},
+      {type: 'sell', title: "Infinity", name: "top-rated-comics-11", link: "#", imagePath: "images/top-rated-comics-11.jpg", sellDetails: {price: 34.99}},
+      {type: 'free', title: "New Mutants: Dead Souls (2018-) #3", name: "top-rated-comics-12", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/top-rated-comics-12.jpg"},
+      {type: 'sell', title: "Dark Days: The Casting (2017-) #1", name: "top-rated-comics-13", link: "#", imagePath: "images/top-rated-comics-13.jpg", sellDetails: {price: 5.99}},
+      {type: 'free', title: "Uber: Invasion #13", name: "top-rated-comics-14", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/top-rated-comics-14.jpg"},
+      {type: 'free', title: "Infinity War: Collected Edition", name: "top-rated-comics-15", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/top-rated-comics-15.jpg"}
+    ];
+    
+    var comingSoonComics = [
+      {type: 'sell', title: "Mighty Morphin Power Rangers #27", name: "coming-soon-comics-1", link: "#", imagePath: "images/coming-soon-comics-1.jpg", sellDetails: {price: 3.99}},
+      {type: 'sell', title: "The Wild Storm (2017-) #13", name: "coming-soon-comics-2", link: "#", imagePath: "images/coming-soon-comics-2.jpg", sellDetails: {price: 5.99}},
+      {type: 'sell', title: "Moon Knight: Legacy Vol. 1: Crazy Runs In The Family", name: "coming-soon-comics-3", link: "#", imagePath: "images/coming-soon-comics-3.jpg", sellDetails: {price: 10.99}},
+      {type: 'sell', title: "Avengers (2018-) #2", name: "coming-soon-comics-4", link: "#", imagePath: "images/coming-soon-comics-4.jpg", sellDetails: {price: 3.99}},
+      {type: 'sell', title: "Infinity Countdown (2018-) #4", name: "coming-soon-comics-5", link: "#", imagePath: "images/coming-soon-comics-5.jpg", sellDetails: {price: 4.99}},
+      {type: 'sell', title: "Thor (2018-) #1", name: "coming-soon-comics-6", link: "#", imagePath: "images/coming-soon-comics-6.jpg", sellDetails: {price: 5.99}},
+      {type: 'sell', title: "S.H.I.E.L.D. by Hickman & Weaver (2018) #6", name: "coming-soon-comics-7", link: "#", imagePath: "images/coming-soon-comics-7.jpg", sellDetails: {price: 3.99}},
+      {type: 'sell', title: "The Mighty Thor Vol. 5: The Death Of The Mighty Thor", name: "coming-soon-comics-8", link: "#", imagePath: "images/coming-soon-comics-8.jpg", sellDetails: {price: 15.99}},
+      {type: 'sell', title: "All-New Wolverine (2015-) #35", name: "coming-soon-comics-9", link: "#", imagePath: "images/coming-soon-comics-9.jpg", sellDetails: {price: 3.99}},
+      {type: 'sell', title: "Ben Reilly: Scarlet Spider Vol. 3: The Slingers Return", name: "coming-soon-comics-10", link: "#", imagePath: "images/coming-soon-comics-10.jpg", sellDetails: {price: 8.99}}
+    ];
+    
+    var interestingComics = [
+      {type: 'free', title: "Swamp Thing By Scott Snyder: Deluxe Edition", name: "interesting-comics-1", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/interesting-comics-1.jpg"},
+      {type: 'free', title: "Dark Nights: Metal (2017-) #2", name: "interesting-comics-2", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/interesting-comics-2.jpg"},
+      {type: 'free', title: "Star Trek: The Next Generation: Through The Mirror #2", name: "interesting-comics-3", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/interesting-comics-3.jpg"},
+      {type: 'free', title: "Thanos Rising", name: "interesting-comics-4", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/interesting-comics-4.jpg"},
+      {type: 'free', title: "Batman (2011-2016) Vol. 8: Superheavy", name: "interesting-comics-5", link: "#", rating: 5, view: {pages: 30}, imagePath: "images/interesting-comics-5.jpg"}
+    ];
+
+block vendors
+  link(rel="stylesheet", href="stylesheets/main.css")
+  link(rel="stylesheet", href="stylesheets/style.css")
+  link(rel="stylesheet", href="stylesheets/comics.css")
+
+mixin comics(comics)
+  +b.DIV.comics
+    +e.A(href= comics.link)
+      +e.PICTURE.picture
+        +e.IMG(src= comics.imagePath, alt= comics.name)
+      +e.DIV.details
+        +e.P.title
+          +e.A(href= comics.link)= comics.title
+        - if (comics.rating)
+          +e.DIV.rating.rating
+            - for (var i = 0; i < comics.rating; i++)
+              +star
+        - if (comics.view)
+          +e.P.view
+            +e.SPAN.pages.pages= comics.view.pages
+            +e.A(href= comics.link)
+              +e.SPAN.demo View demo
+        - if (comics.sellDetails)
+          +e.DIV.sell-details
+            +e.SPAN.price= comics.sellDetails.price + "$"
+            +e.A.buy-btn.buy-comics.buy-comics.button(nohref="true") Buy
+          
+
+block content
+  +b.MAIN.content
+    +e.ASIDE.filter
+      +filter()
+    +e.ARTICLE.comics-wrap.comics-wrap
+      +b.SECTION.new-comics
+        +e.H3.title New comics
+        +b.DIV.content
+          each comics in newComics
+            +comics(comics)
+      +b.SECTION.top-sell
+        +e.H3.title Top selling
+        +b.DIV.content
+          each comics in topSellComics
+            +comics(comics)
+      +b.SECTION.top-rated
+        +e.H3.title Top rated
+        +b.DIV.content
+          each comics in topRatedComics
+            +comics(comics)
+      +b.SECTION.coming-soon
+        +e.H3.title Coming soon
+        +b.DIV.content
+          each comics in comingSoonComics
+            +comics(comics)
+      +b.SECTION.interesting
+        +e.H3.title Interesing this year
+        +b.DIV.content
+          each comics in interestingComics
+            +comics(comics)

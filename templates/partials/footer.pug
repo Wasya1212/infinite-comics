@@ -1,0 +1,7 @@
+mixin footer(author)
+  +b.FOOTER.footer
+    +b.SPAN(class="copyright") © 2018 Impact Comics. All right reserved
+    +b.DIV(class="designed-by")
+      +e.SPAN.name Made & produced by 
+        +e.STRONG= author
+      +e.IMG.icon(src="images/icons/designed-by.png")

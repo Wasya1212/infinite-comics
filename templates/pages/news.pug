@@ -1,0 +1,110 @@
+extends ../layout/default
+
+block vars
+  -
+    var page = {title: "comics"};
+    
+    var introSlides = [
+      {name: "news-poster-1", link: "#", title: "‘Gotham’ Stars React To Series Renewal", imagePath: "images/news-poster-1.jpg"},
+      {name: "news-poster-2", link: "#", title: "The Flash: Who Exactly is Norvock?", imagePath: "images/news-poster-2.jpg"},
+      {name: "news-poster-3", link: "#", title: "George Perez Re-Teams with Thanos for Infinity Wars Prime Variant", imagePath: "images/news-poster-3.jpg"},
+      {name: "news-poster-4", link: "#", title: "Marvel Releases Full Schedule for X-Men Extermination Prelude Scenes", imagePath: "images/news-poster-4.jpg"}
+    ];
+    
+    var videoNews = [
+      {link: "#", title: "TÄFLE – a New Comic Store Comes to Clifton Park, New York", video: {path: "files/video/Gerry Conway Interview - The Comics Pals @ NYCC 2017.mp4", type: "video/mp4"}},
+      {link: "#", title: "Deadpool 2: Josh Brolin Talks his 4-Picture Deal as Cable", video: {path: "files/video/🎥 DEADPOOL 2 (2018) _ Full Movie Trailer in Full HD _ 1080p.mp4", type: "video/mp4"}},
+      {link: "#", title: "FOX Renews Gotham For a (Final) 5th Season", video: {path: "files/video/Fox Gives Gotham A 5th And Final Season.mp4", type: "video/mp4"}}
+    ];
+    
+    var shortNews = [
+      {name: "short-news-1", link: "#", title: "Tim Drake Uses Batgirl’s Pre-Flashpoint Past as a Weapon in Detective Comics", imagePath: "images/short-news-1.jpg", description: "As seen last issue, Tim Drake has been consumed by the OMAC nanotech, becoming a new, Batman-looking Brother Eye, yet still claiming to be in control of his decisions. The first of these actions was to create a horrific new incarnation of The Belfry in the heart of Gotham to serve as the new headquarters for his, or Brother Eye’s, base of operations."},
+      {name: "short-news-2", link: "#", title: "Batman Preview Art Features a Throwback to Iconic ’66 Theme Song", imagePath: "images/short-news-2.jpg", description: "Beginning with Batman #48, the Caped Crusader will be forced to deal with an unwelcome visit from the Clown Prince of Crime before Bruce Wayne and Selina Kyle officially tie the knot in Issue #50. However, while this should prove to be nothing short of a headache for Batman, the pre-wedding hijinks certainly have The Joker singing a happy — and unmistakable — tune."},
+      {name: "short-news-3", link: "#", title: "Arrow: Enough Talk, Time for Action", imagePath: "images/short-news-3.jpg", description: "To get right into it, the episode starts off nicely by setting up this idea of total peace amongst the varying main characters of Arrow. We see Ollie cooking with William and Felicity. Rene enjoys a hockey game with his daughter. Curtis spends time with his boyfriend and Dinah is in her element—pressing one of Diaz’s goons in an alley."},
+      {name: "short-news-4", link: "#", title: "Being Superman", imagePath: "images/short-news-4.jpg", description: "Superman has always been my favorite character in fiction. When I was growing up I wanted to be him, and I thought that one day maybe I could be. People would always say the idea was ridiculous, What?!? Superman?!? The all-powerful alien demi-god? Not a chance! How about Batman? If you worked really hard you could be Batman! He’s a human!"}
+    ];
+    
+    var latestNews = [
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-2", link: "#", imagePath: "images/latest-news-2.jpg", title: "EXCLUSIVE: The Spider King #4 (Preview)", description: "Final issue! Hrolf and the clan fight their way through the Spider King’s parasitic horde and attack his fortress in a last-ditch effort to save the Earth. As the Spider King’s destructive influence spreads, Sigrid and Hrolf confront him in a climactic and bloody battle.", meta: {author: "Nic J. Shaw", date: "13.05.2018"}},
+      {name: "latest-news-3", link: "#", imagePath: "images/latest-news-3.jpg", title: "Here’s the 2018 BAFTA TV Winners List", description: "The 2018 BAFTA TV awards are happening today in England, and although it’s not being broadcast anywhere in the US, we figured we’d let you know who took home the honors.  Great British Bakeoff host Sue Perkins was on hand to host the BAFTA ceremony.", meta: {author: "Mary Anne Butler", date: "13.05.2018"}},
+      {name: "latest-news-4", link: "#", imagePath: "images/latest-news-4.jpg", title: "From The Rumor Mill: From Software’s Next Game Will be Shown Off at E3", description: "You may recall the trailer below from the Video Game Awards, as From Software showed off some kind of weird little trailer featuring a bloody rope crank thing made of bones. At least, that’s what we think this is, we can’t really be sure.", meta: {author: "Gavin Sheehan", date: "13.05.2018"}},
+      {name: "latest-news-5", link: "#", imagePath: "images/latest-news-5.jpg", title: "Lying In The Gutters, 13th May 2018 – Jim Lee Is The Law", description: "It’s been a busy week of DC Comics rumours, of Crisises, of Creative Refreshes, of Man Of Steel betting pools and low orders, of anti-imperialist Superman villains and of Batwoman cancellations. Jim Lee denied a reboot – but that was all. And one man’s reboot is, as we know, another man’s retcon is another man’s hypercrisis.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-6", link: "#", imagePath: "images/latest-news-6.jpg", title: "Monstress #16 Review: The Inky Black Monster May Just Have a Soul", description: "Maika and Zinn enter Zinn’s sanctum. The creature claims that they should be able to navigate it with ease, but they are immediately assailed by cyborg automatons which Zinn believes should obey him. Deeper in, they find a servant simulacrum which is dedicated to seeing Maika be reincarnated as the Shaman-Empress.", meta: {author: "Joshua Davison", date: "13.05.2018"}},
+      {name: "latest-news-7", link: "#", imagePath: "images/latest-news-7.jpg", title: "Medieval Spawn and Witchblade #1 Review: Conventional Fantasy Salvaged by Gorgeously Macabre Art", description: "An ancient land is assailed by dark and malevolent beasts. They have sent the last of their able-bodied people to fight them, but it doesn’t appear to be enough. Thankfully, a knight bearing the visage of Spawn—and the former king of this realm—arrives and can slay the creatures with ease. The villagers hail him as their king, but a witch plans against both Spawn and the villagers from a fortress.", meta: {author: "Joshua Davison", date: "13.05.2018"}},
+      {name: "latest-news-8", link: "#", imagePath: "images/latest-news-8.jpg", title: "From the Rumor Mill: Will We Be Getting a Pokémon Switch Announcement Soon?", description: "Every week it seems like there’s some new thing on Reddit or social media screaming that we’re going to be getting an official announcement for the next Pokémon game ready to be released on the Nintendo Switch. And guess what? It never comes. The latest can of lighter fluid to be thrown onto this barrel fire comes from 4Gamer.net in Japan, who reported on the longtime developer for the series Junichi Masuda attended a Pokémon fan event in Tokyo and talked to come people who said the game would be coming out in 2018 or later.", meta: {author: "Gavin Sheehan", date: "13.05.2018"}},
+      {size: "large", name: "latest-news-9", link: "#", imagePath: "images/latest-news-9.jpeg", title: "Clarifying That DC Comics Editorial Rumour Regarding Man Of Steel", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-10", link: "#", imagePath: "images/latest-news-10.jpg", title: "American Gods Season 2: Bruce Langley Confirms Production Start on Starz Series", description: "To say it’s been a rough couple of months for Starz‘s American Gods would be a serious understatement, especially considering their series adaptation of author and executive producer Neil Gaiman‘s novel is coming off of a strong first season. We’ve watched as things got a little nasty between out-going showrunners Bryan Fuller and Michael Green and Fremantle; and between Gaiman and The Hollywood Reporter.", meta: {author: "Ray Flook", date: "13.05.2018"}},
+      {name: "latest-news-11", link: "#", imagePath: "images/latest-news-11.jpg", title: "Happy Birthday, Dwayne “The Rock” Johnson", description: "May brings us many exciting things to celebrate: Star Wars Day, Asian Pacific American Heritage Month, Mother’s Day. It also marks the birth of one very important individual: Dwayne “The Rock” Johnson.", meta: {author: "The DHK", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}},
+      {size: "large", name: "latest-news-1", link: "#", imagePath: "images/latest-news-1.jpg", title: "The Museum Edition of The Walking Dead #1 is a Fake, Sold For Thousands of Dollars", description: "There is no ‘Museum Edition’ of The Walking Dead #1, the first-issue of the long-running series of the zombie apocalypse comic book that has spawned two TV series, games, and all the merchandise you can eat. But some people didn’t guess the memo.", meta: {author: "Rich Johnston", date: "13.05.2018"}}
+    ];
+
+block vendors
+  link(rel="stylesheet", href="libs/slick-1.8.0/slick/slick.css")
+  link(rel="stylesheet", href="stylesheets/slick-theme.css")
+  link(rel="stylesheet", href="stylesheets/style.css")
+  link(rel="stylesheet", href="stylesheets/news.css")
+  //-- link(rel="stylesheet", href="stylesheets/filter.css")
+
+block scripts
+  script(src="libs/slick-1.8.0/slick/slick.min.js")
+  script(src="javascripts/news.js")
+
+mixin intro(slides)
+  +b.SECTION.intro
+    each slide in slides
+      +b.DIV.main-news
+        +e.IMG(src= slide.imagePath, alt= slide.name)
+        +e.P.title.title
+          +e.A(href= slide.link)= slide.title
+
+mixin videoNews(news)
+  +b.DIV.news
+    +e.video.video-container
+      +e.VIDEO(src= news.video.path, type= news.video.type, controls)
+    +e.P.title.title
+      +e.A(href= news.link)= news.title
+
+mixin news(news)
+  +b.DIV.news(size= news.size || 'medium')
+    +e.A(href= news.link)
+      +e.PICTURE.poster
+        +e.IMG(src= news.imagePath, alt= news.name)
+    +e.DIV.info.info
+      +e.A(href= news.link)
+        +e.P.title= news.title
+      +e.P.description= news.description
+    - if (news.meta)
+      +e.DIV.meta.meta
+        +e.SPAN.author= news.meta.author
+        +e.span.date= news.meta.date
+
+block content
+  +intro(introSlides)
+  +b.MAIN.content
+    +b.SECTION.video-news
+      +e.H3.title Main Video News
+      +e.DIV.content.content
+        each news in videoNews
+          +videoNews(news)
+    +b.SECTION.short-news
+      +e.H3.title Main today
+      +e.DIV.content.content
+        each news in shortNews
+          +news(news)
+    +b.SECTION.latest-news
+      +e.H3.title Latest news
+      +e.DIV.content.content
+        each news in latestNews
+          +news(news)
+      

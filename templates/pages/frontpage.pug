@@ -1,0 +1,147 @@
+extends ../layout/default
+
+block vars
+  -
+    var page = {title: "comics"};
+    
+    var introSlides = [
+      {name: "slide 1", imagePath: "images/slide-1.jpg"},
+      {name: "slide 2", imagePath: "images/slide-2.jpg"},
+      {name: "slide 3", imagePath: "images/slide-3.jpg"},
+      {name: "slide 4", imagePath: "images/slide-4.jpg"},
+      {name: "slide 5", imagePath: "images/slide-5.jpg"}
+    ];
+    
+    var newComicses = [
+      {title: "Superman in the line of fire", link: "#", name: "poster-1", imagePath: "images/new-comics-poster-1.jpg"},
+      {title: "Batman detective", link: "#", name: "poster-2", imagePath: "images/new-comics-poster-2.jpg"},
+      {title: "The flash the new", link: "#", name: "poster-3", imagePath: "images/new-comics-poster-3.jpg"}
+    ];
+    
+    var popularComicses = [
+      {title: "Iron man - The invisible", link: "#", name: "poster-1", imagePath: "images/comics-poster-1.png", date: "47 june", description: "The Invincible Iron Man is an Eisner Award-winning comic book series written by Matt Fraction with art by Salvador Larroca, published by Marvel Comics and starring the superhero Iron Man. After issue #33 The Invincible Iron Man returned to its original numbering with issue #500. It concluded with issue 527, succeeded by the Marvel NOW!-imprinted Iron Man series."},
+      {title: "Hulk - The incredible", link: "#", name: "poster-2", imagePath: "images/comics-poster-2.jpeg", date: "117 july", description: "The Incredible Hulk is an ongoing comic book series featuring the Marvel Comics superhero the Hulk and his alter ego Dr. Bruce Banner. First published in May 1962, the series ran for six issues before it was cancelled in March 1963, and the Hulk character began appearing in Tales to Astonish."},
+      {title: "Thor - The mighty", link: "#", name: "poster-3", imagePath: "images/comics-poster-3.jpg", date: "160 jan", description: "The line falls under Marvel's \"Avengers Assemble\" marketing banner, which will also include the Iron Man: The Armored Avenger and Captain America: The First Avenger toy lines. This will be used as a lead up to 2012's The Avengers motion picture."},
+      {title: "Spider-man - The amazing", link: "#", name: "poster-4", imagePath: "images/comics-poster-4.jpg", date: "700 dec", description: "The Amazing Spider-Man is an American comic book series published by Marvel Comics, featuring the adventures of the fictional superhero Spider-Man. Being the mainstream continuity of the franchise, it began publication in 1963 as a monthly periodical and was published continuously, with a brief interruption in 1995, until its relaunch with a new numbering order in 1999."}
+    ];
+    
+    var products = [
+      {title: "Marvel movie collection figures", link: "#", type: "figure", name: "product-1", imagePath: "images/comics-product-1.png", price: 266.99},
+      {title: "DC daredevil figure", link: "#", type: "figure", name: "product-2", imagePath: "images/comics-product-2.png", price: 143.99},
+      {title: "DC supergirl girls figures", link: "#", type: "figure", name: "product-3", imagePath: "images/comics-product-3.png", price: 120.50},
+      {title: "Harley quinn figure", link: "#", type: "figure", name: "product-4", imagePath: "images/comics-product-4.png", price: 82.99},
+      {title: "Batman hat", link: "#", type: "clothes", name: "product-5", imagePath: "images/comics-product-5.png", price: 40.00},
+      {title: "Night Gotham Batman pajamas", link: "#", type: "clothes", name: "product-6", imagePath: "images/comics-product-6.png", price: 150.00},
+      {title: "Brutal wolverine cup", link: "#", type: "cup", name: "product-7", imagePath: "images/comics-product-7.png", price: 35.65},
+      {title: "Marvel Capitan America belt", link: "#", type: "clothes", name: "product-8", imagePath: "images/comics-product-8.png", price: 21.99},
+      {title: "Spider-man trinket", link: "#", type: "other", name: "product-9", imagePath: "images/comics-product-9.png", price: 6.99},
+      {title: "DC X-man card game", link: "#", type: "game", name: "product-10", imagePath: "images/comics-product-10.png", price: 170.50},
+      {title: "DC universe bad girls figures", link: "#", type: "figure", name: "product-11", imagePath: "images/comics-product-11.png", price: 95.99},
+      {title: "DC Batman figure (large)", link: "#", type: "figure", name: "product-12", imagePath: "images/comics-product-12.png", price: 284.99}
+    ];
+    
+    var latestNews = [
+      {title: "Cable and Deadpool Reunite for New Marvel Annual", link: "#", name: "news-1", imagePath: "images/news-1.jpg", author: "Gabel65", date: "12.05.2018", description: "In light of their first cinematic team-up in Deadpool 2, Marvel Comics will re-team the classic X-Men characters in an annual set to release in August."},
+      {title: "Ultimate Wolverine’s Son is Getting an All-New Superhero Iden…", link: "#", name: "news-2", imagePath: "images/news-2.jpg", author: "Jon Averdon", date: "12.05.2018", description: "After surviving the death of the Ultimate Universe, Wolverine's son Jimmy Hudson finally gets a codename in X-Men Blue #30."},
+      {title: "Will Batman #50 Feature a Classic Costume’s Return?", link: "#", name: "news-3", imagePath: "images/news-3.jpg", author: "Tim Adams", date: "12.05.2018", description: "Tom King's latest tease for Batman #50 features an illustration by Jason Fabok hinting at the return of a classic element of the Dark Knight's suit."},
+      {title: "Fantastic Four’s Return Celebrated in Slew of New Variants from Marvel", link: "#", name: "news-4", imagePath: "images/news-4.jpg", author: "Tom Chapman", date: "12.05.2018", description: "Marvel is celebrating the return of the Fantastic Four in 2018 with 20 brand new variant covers."},
+      {title: "Snyder Reveals More Information About DC’s New Ultraviolet Lantern Ring", link: "#", name: "news-5", imagePath: "images/news-5.jpg", author: "Jason Cohen", date: "12.05.2018", description: "Scott Snyder dishes on some of the backstory behind the Ultraviolet Lantern coming up in Justice League."},
+      {title: "The Battles of Bridget Lee Returns with Gamechanging Second Volume", link: "#", name: "news-6", imagePath: "images/news-6.jpg", author: "Brigid Alverson", date: "12.05.2018", description: "Writer and artist Ethan Young talks to CBR about the rule-breaking second volume of The Battles of Bridget Lee, The Miracle Child."}
+    ];
+
+block vendors
+  link(rel="stylesheet", href="libs/slick-1.8.0/slick/slick.css")
+  link(rel="stylesheet", href="stylesheets/slick-theme.css")
+  link(rel="stylesheet", href="stylesheets/style.css")
+  
+block scripts
+  script(src="libs/slick-1.8.0/slick/slick.min.js")
+  script(src="javascripts/main.js")
+
+mixin intro(slides)
+  +b.SECTION.intro
+    each slide in slides
+      +e.DIV.slide
+        +e.IMG(src= slide.imagePath, alt= slide.name)
+    
+mixin newComics(comics)
+  +e.DIV.container
+    +b.DIV.comics-preview
+      +b.SPAN.name= comics.title
+      +b.DIV.image
+        +e.A(href= comics.link)
+          +e.IMG(src= comics.imagePath, alt= comics.name)
+
+mixin popularComics(comics)
+  +e.DIV.container
+    +b.DIV.comics-block
+      +b.DIV.image
+        +e.IMG(src= comics.imagePath, alt= comics.name)
+      +b.DIV.description
+        +e.HEADER
+          +e.A(href= comics.link)
+            +b.SPAN.comics-name= comics.title
+            +b.SPAN.comics-date= comics.date
+        +b.DIV.wrapper
+          +e.P.text.text= comics.description
+
+mixin product(product)
+  +b.SECTION.product
+    +e.HEADER
+      +e.P.title.title= product.title
+    +e.ASIDE.control
+      +e.btn(nohref, class="button fast-view")
+      +e.btn(nohref, class="button buy")
+    +e.DIV.preview-image(productType= product.type)
+      +e.A(href= product.link)
+        +e.IMG(src= product.imagePath, alt= product.name)
+    +e.SPAN.price= product.price
+
+mixin news(news)
+  +b.SECTION.news
+    +e.DIV.preview-image
+      +e.A(href= news.link)
+        +e.IMG(src= news.imagePath, alt= news.name)
+    +e.DIV.info
+      +e.A(href= news.link)
+        +e.P.title= news.title
+      +e.P.text= news.description
+    +e.DIV.meta
+      +e.A(href= news.link)
+        +e.SPAN.author= news.author
+      +e.A(href= news.link)
+        +e.SPAN.date= news.date
+
+block content
+  +intro(introSlides)
+  +b.MAIN.content
+    +e.ARTICLE.comics
+      +b.SECTION.new-comics
+        +b.DIV.blured-background
+        +e.H3.title New comics
+        each comics in newComicses
+          +newComics(comics)
+        +b.show-more
+          +b.A.button(href="#") show more
+      +b.SECTION.popular-comics
+        +e.H3.title Popular comics
+        each comics in popularComicses
+          +popularComics(comics)
+    +e.ARTICLE.products
+      +b.H3.products__title Products
+      +b.DIV.container
+        each product in products
+          +product(product)
+    +e.ARTICLE.videos
+      +e.H3.videos__title Most viewed video today
+      +b.SECTION.related-video
+        +e.VIDEO(src="files/video/Marvel Studios' Avengers- Infinity War Official Trailer.mp4", controls)
+        +e.FOOTER
+          +b.P.title Marvel studios avengers - Infinity war official trailer
+    +e.ARTICLE.latest-news
+      +e.H3 Latest news
+      +b.DIV.container
+        each news in latestNews
+          +news(news)
+      
+        

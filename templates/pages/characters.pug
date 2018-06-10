@@ -1,0 +1,95 @@
+extends ../layout/default
+
+block vars
+  -
+    var page = {title: "comics"};
+    
+    var newCharacters = [
+      {name: "William Cobb", link: "#", imagePath: "images/new-character-1.jpeg"},
+      {name: "Element Woman", link: "#", imagePath: "images/new-character-2.jpeg"},
+      {name: "Pandora", link: "#", imagePath: "images/new-character-3.jpg"},
+      {name: "William Arcane", link: "#", imagePath: "images/new-character-4.png"},
+      {name: "Nina Mazursky", link: "#", imagePath: "images/new-character-5.jpg"},
+      {name: "Starling", link: "#", imagePath: "images/new-character-6.png"},
+      {name: "Zola", link: "#", imagePath: "images/new-character-7.jpg"},
+      {name: "Courts Of Owls", link: "#", imagePath: "images/new-character-8.jpg"},
+      {name: "The Talons", link: "#", imagePath: "images/new-character-9.jpg"},
+      {name: "Saiko", link: "#", imagePath: "images/new-character-10.jpg"},
+      {name: "Kevin Kho", link: "#", imagePath: "images/new-character-11.jpg"},
+      {name: "The Rot", link: "#", imagePath: "images/new-character-12.png"},
+      {name: "Bunker", link: "#", imagePath: "images/new-character-13.jpg"},
+      {name: "Tig", link: "#", imagePath: "images/new-character-14.png"},
+      {name: "Nobody", link: "#", imagePath: "images/new-character-15.jpeg"},
+      {name: "Kahina the Seer", link: "#", imagePath: "images/new-character-16.png"},
+      {name: "Lee", link: "#", imagePath: "images/new-character-17.jpg"},
+      {name: "Cain", link: "#", imagePath: "images/new-character-18.jpeg"},
+      {name: "Invictus", link: "#", imagePath: "images/new-character-19.png"},
+      {name: "Canterbury Cricket", link: "#", imagePath: "images/new-character-20.jpeg"},
+      {name: "Blackout", link: "#", imagePath: "images/new-character-21.jpg"},
+      {name: "The Outsider", link: "#", imagePath: "images/new-character-22.png"},
+      {name: "Prisoner of War", link: "#", imagePath: "images/new-character-23.png"},
+      {name: "Kunoichi", link: "#", imagePath: "images/new-character-24.png"}
+    ];
+    
+    var popularCharacters = [
+      {name: "Graves", link: "#", imagePath: "images/popular-character-1.jpg"},
+      {name: "Miranda Shieve", link: "#", imagePath: "images/popular-character-2.jpg"},
+      {name: "Raya Vestri", link: "#", imagePath: "images/popular-character-3.png"},
+      {name: "Weeping Woman", link: "#", imagePath: "images/popular-character-4.png"},
+      {name: "Voltaic", link: "#", imagePath: "images/popular-character-5.jpeg"},
+      {name: "Nelson Jent", link: "#", imagePath: "images/popular-character-6.jpg"},
+      {name: "Spark", link: "#", imagePath: "images/popular-character-7.jpg"},
+      {name: "Pedro", link: "#", imagePath: "images/popular-character-8.jpg"}
+    ];
+    
+    var topCharacters = [
+      {name: "Spawn", link: "#", imagePath: "images/top-character-1.jpeg"},
+      {name: "J. Jonah Jameson", link: "#", imagePath: "images/top-character-2.jpg"},
+      {name: "Deadpool", link: "#", imagePath: "images/top-character-3.jpg"},
+      {name: "Jenny Sparks (Stormwatch)", link: "#", imagePath: "images/top-character-4.jpg"},
+      {name: "Green Lantern", link: "#", imagePath: "images/top-character-5.jpg"},
+      {name: "Daredevil", link: "#", imagePath: "images/top-character-6.jpg"},
+      {name: "Hellboy", link: "#", imagePath: "images/top-character-7.jpg"},
+      {name: "Doctor Strange", link: "#", imagePath: "images/top-character-8.jpg"},
+      {name: "Venom", link: "#", imagePath: "images/top-character-9.jpg"},
+      {name: "The Joker", link: "#", imagePath: "images/top-character-10.jpg"},
+      {name: "Astro boy", link: "#", imagePath: "images/top-character-11.jpg"},
+      {name: "Superman (Clark Kent)", link: "#", imagePath: "images/top-character-12.jpg"},
+      {name: "Batman", link: "#", imagePath: "images/top-character-13.jpg"},
+      {name: "John Constantine", link: "#", imagePath: "images/top-character-14.jpg"},
+      {name: "Wolverine", link: "#", imagePath: "images/top-character-15.jpg"},
+      {name: "Spider-man", link: "#", imagePath: "images/top-character-16.jpg"}
+    ];
+
+block vendors
+  link(rel="stylesheet", href="stylesheets/main.css")
+  link(rel="stylesheet", href="stylesheets/style.css")
+  link(rel="stylesheet", href="stylesheets/characters.css")
+
+mixin character(character)
+  +b.DIV.character
+    +e.A(href= character.link)
+      +e.PICTURE.picture
+        +e.IMG(src= character.imagePath, alt= character.name)
+      +e.P.name= character.name
+
+block content
+  +b.MAIN.content
+    +e.ASIDE.filter
+      +filter()
+    +e.ARTICLE.characters-wrap.characters-wrap
+      +b.SECTION.new-characters
+        +e.H3.title New characters
+        +b.DIV.content
+          each character in newCharacters
+            +character(character)
+      +b.SECTION.popular-characters
+        +e.H3.title Popular characters
+        +b.DIV.content
+          each character in popularCharacters
+            +character(character)
+      +b.SECTION.top-characters
+        +e.H3.title Top characters
+        +b.DIV.content
+          each character in topCharacters
+            +character(character)

@@ -1,0 +1,9 @@
+mixin header(items)
+  +b.HEADER.header
+    +e.DIV.logo
+      +e.A.logo-icon-link.main-icon(href="/")
+        +e.IMG.icon(src="images/logo/logo.png", alt="my-site.com")
+    +e.NAV.navigation
+      each item in items
+        +e.A.nav-item.item(href= item.link)
+          +e.SPAN= item.title

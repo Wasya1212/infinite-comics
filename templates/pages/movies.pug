@@ -1,0 +1,113 @@
+extends ../layout/default
+
+block vars
+  -
+    var page = {title: "comics"};
+    
+    var introSlides = [
+      {name: "slide 1", imagePath: "images/movie-poster-1.jpg", title: "Avengers: Infinity War", description: "Avengers: Infinity War is a 2018 American superhero film based on the Marvel Comics superhero team the Avengers, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures. It is the sequel to 2012's The Avengers and 2015's Avengers: Age of Ultron, and the nineteenth film in the Marvel Cinematic Universe (MCU). The film is directed by Anthony and Joe Russo, written by Christopher Markus and Stephen McFeely, and features an ensemble cast including Robert Downey Jr., Chris Hemsworth, Mark Ruffalo, Chris Evans, Scarlett Johansson, Benedict Cumberbatch, Don Cheadle, Tom Holland, Chadwick Boseman, Paul Bettany, Elizabeth Olsen, Anthony Mackie, Sebastian Stan, Danai Gurira, Letitia Wright, Dave Bautista, Zoe Saldana, Josh Brolin, and Chris Pratt."},
+      {name: "slide 2", imagePath: "images/movie-poster-2.jpg", title: "Thor: Ragnarok", description: "Thor: Ragnarok is a 2017 American superhero film based on the Marvel Comics character Thor, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures. It is the sequel to 2011's Thor and 2013's Thor: The Dark World, and is the seventeenth film in the Marvel Cinematic Universe (MCU). The film is directed by Taika Waititi from a screenplay by Eric Pearson and the writing team of Craig Kyle and Christopher Yost, and stars Chris Hemsworth as Thor alongside Tom Hiddleston, Cate Blanchett, Idris Elba, Jeff Goldblum, Tessa Thompson, Karl Urban, Mark Ruffalo, and Anthony Hopkins. In Thor: Ragnarok, Thor must escape the alien planet Sakaar in time to save Asgard from Hela and the impending Ragnarök."},
+      {name: "slide 3", imagePath: "images/movie-poster-3.jpg", title: "Deadpool 2", description: "Deadpool 2 is an upcoming American superhero film based on the Marvel Comics character Deadpool, distributed by 20th Century Fox. It is intended to be the eleventh installment in the X-Men film series, and a sequel to the 2016 film Deadpool. The film is directed by David Leitch from a script by Rhett Reese, Paul Wernick, and Ryan Reynolds, with Reynolds starring in the title role alongside Josh Brolin, Morena Baccarin, Julian Dennison, Zazie Beetz, T.J. Miller, Brianna Hildebrand, and Jack Kesy. In the film, Deadpool forms the team X-Force to protect a young mutant from Cable."}
+    ];
+    
+    var recomendedMovies = [
+      {name: "recomended-movie-1", link: "#", imagePath: "images/recomended-movie-1.jpg", title: "Batman Ninja"},
+      {name: "recomended-movie-2", link: "#", imagePath: "images/recomended-movie-2.jpg", title: "LEGO DC Comics Super Heroes - Justice League: Gotham City Breakout"},
+      {name: "recomended-movie-3", link: "#", imagePath: "images/recomended-movie-3.jpg", title: "Suicide Squad: Hell to Pay"},
+      {name: "recomended-movie-4", link: "#", imagePath: "images/recomended-movie-4.jpg", title: "Jonah Hex"},
+      {name: "recomended-movie-5", link: "#", imagePath: "images/recomended-movie-5.jpg", title: "Steel"}
+    ];
+    
+    var announcedMovies = [
+      {name: "anounced-movie-1", link: "#", imagePath: "images/anounced-movie-1.jpg"},
+      {name: "anounced-movie-2", link: "#", imagePath: "images/anounced-movie-2.jpg"},
+      {name: "anounced-movie-3", link: "#", imagePath: "images/anounced-movie-3.jpg"},
+      {name: "anounced-movie-4", link: "#", imagePath: "images/anounced-movie-4.jpg"},
+      {name: "anounced-movie-5", link: "#", imagePath: "images/anounced-movie-5.jpg"},
+      {name: "anounced-movie-6", link: "#", imagePath: "images/anounced-movie-6.jpeg"},
+      {name: "anounced-movie-7", link: "#", imagePath: "images/anounced-movie-7.jpg"},
+      {name: "anounced-movie-8", link: "#", imagePath: "images/anounced-movie-8.jpg"},
+      {name: "anounced-movie-9", link: "#", imagePath: "images/anounced-movie-9.jpg"},
+      {name: "anounced-movie-10", link: "#", imagePath: "images/anounced-movie-10.jpg"},
+      {name: "anounced-movie-11", link: "#", imagePath: "images/anounced-movie-11.png"}
+    ];
+    
+    var movies = [
+      {name: "movie-1", link: "#", imagePath: "images/movie-1.jpg", title: "Superman/Batman: Public Enemies (2009)", description: "The World’s Greatest Super Heroes become its most wanted criminals! When United States President Lex Luthor uses the oncoming trajectory of a Kryptonite asteroid to frame Superman and declare a $1 billion bounty on the heads of the Man of Steel and his 'partner in crime,' Batman, heroes and villains alike launch a relentless pursuit of Superman and Batman, who must unite -- and recruit help -- to stave off the onslaught, stop the asteroid and expose Luthor’s devious plot to take command of far more than North America. Based on the blockbuster comic series and graphic novel by Jeph Loeb and Ed McGuinness."},
+      {name: "movie-2", link: "#", imagePath: "images/movie-2.jpg", title: "Superman/Shazam!: The Return Of The Black Adam (2010)", description: "Chosen the world’s protector against the Seven Deadly Enemies of Man – pride, envy, greed, hatred, selfishness, laziness and injustice – young Billy Batson accepts his destiny as Captain Marvel. Battling alongside Superman against nefarious Black Adam, Billy soon discovers the challenge super heroes ultimately face: is it revenge or justice? For bounty hunter Jonah Hex and hard-boiled cop turned vengeance ghost The Spectre, getting their hands dirty is part of the job – maybe even the fun part. But Superman, Green Arrow and Black Canary follow an internal moral code to guide their actions. They know it’s easy to get lost in the darkness of the fight, especially when villans like Merlyn the Magnificent and Count Vertigo place no value on human life."},
+      {name: "movie-3", link: "#", imagePath: "images/movie-3.jpg", title: "Batman Begins (2005)", description: "Batman Begins explores the origins of the Batman legend and the Dark Knight's emergence as a force for good in Gotham. In the wake of his parents' murder, disillusioned industrial heir Bruce Wayne  travels the world seeking the means to fight injustice and turn fear against those who prey on the fearful. He returns to Gotham and unveils his alter-ego: Batman, a masked crusader who uses his strength, intellect and an array of high tech deceptions to fight the sinister forces that threaten the city."},
+      {name: "movie-4", link: "#", imagePath: "images/movie-4.jpg", title: "Wonder Woman (2017)", description: "Before she was Wonder Woman, she was Diana, princess of the Amazons, trained to be an unconquerable warrior. Raised on a sheltered island paradise, when an American pilot crashes on their shores and tells of a massive conflict raging in the outside world, Diana leaves her home, convinced she can stop the threat. Fighting alongside man in a war to end all wars, Diana will discover her full powers…and her true destiny."},
+      {name: "movie-5", link: "#", imagePath: "images/movie-5.jpg", title: "Batman: Return of the Caped Crusaders (2016)", description: "It’s back to the 1960s as Batman and Robin spring into action when Gotham City is threatened by a quartet of Batman’s most fiendish foes – Penguin, The Joker, Riddler and Catwoman. The four Super-Villains have combined their wicked talents to hatch a plot so nefarious that the Dynamic Duo will need to go to outer space (and back) to foil their arch enemies and restore order in Gotham City. It’s a truly fantastic adventure that will pit good against evil, good against good, evil against evil … and feature two words that exponentially raise the stakes for both sides: Replicator Ray. Holy Multiplication Tables, Batman!"},
+      {name: "movie-6", link: "#", imagePath: "images/movie-6.jpg", title: "LEGO DC Super Heroes: The Flash (2018)", description: "In LEGO DC Super Heroes: The Flash, Reverse-Flash manipulates the Speed Force to put the Flash into a time loop that forces him to relive the same day over and over again—with progressively disastrous results, including losing his powers and being fired by the Justice League. The Flash must find a way to restore time to its original path and finally apprehend his worst enemy before all is lost for the Flash…and the world!"},
+      {name: "movie-7", link: "#", imagePath: "images/movie-7.jpg", title: "Watchmen (2009)", description: "Someone’s killing our super heroes. The year is 1985 and super heroes have banded together to respond to the murder of one of their own. They soon uncover a sinister plot that puts all of humanity in grave danger. The super heroes fight to stop the impending doom only to find themselves a target for annihilation. But, if our super heroes are gone, who will save us?"},
+      {name: "movie-8", link: "#", imagePath: "images/movie-8.jpg", title: "Man of Steel (2013)", description: "From Warner Bros. Pictures and Legendary Pictures comes “Man of Steel,” starring Henry Cavill (“Immortals,” TV’s “The Tudors”) in the role of Clark Kent/Superman, under the direction of Zack Snyder (“300,” “Watchmen”)."},
+      {name: "movie-9", link: "#", imagePath: "images/movie-9.jpg", title: "Batman v Superman: Dawn of Justice (2016)", description: "Fearing the actions of a god-like super hero left unchecked, Gotham City’s own formidable, forceful vigilante takes on Metropolis’s most revered, modern-day savior, while the world wrestles with what sort of hero it really needs. And with Batman and Superman at war with one another, a new threat quickly arises, putting mankind in greater danger than it’s ever known before."},
+      {name: "movie-10", link: "#", imagePath: "images/movie-10.jpg", title: "Green Lantern (2011)", description: "In a universe as vast as it is mysterious, an elite force of protectors for peace and justice has existed for centuries. They are the Green Lantern Corps. When a new enemy called Parallax threatens to destroy the Universe, their fate and the fate of Earth lie in the hands of the Corps' newest recruit, the first human ever selected: Hal Jordan (Ryan Reynolds). Bringing the popular superhero to the big screen for the first time, Green Lantern also stars Blake Lively (Gossip Girl), Peter Sarsgaard (Orphan), Mark Strong (Sherlock Holmes), Academy Award® nominee Angela Bassett and Academy Award® winner Tim Robbins."},
+      {name: "movie-11", link: "#", imagePath: "images/movie-11.jpg", title: "Teen Titans: The Judas Contract (2017)", description: "Led by Starfire, the Teen Titans – Beast Boy, Raven, Blue Beetle, Robin and the just-returned Nightwing – have built a cohesive team in their never-ending battle against evil; but their newest teammate, the mysterious and powerful Terra, may be altering that dynamic. Meanwhile, an ancient evil, Brother Blood, has awakened, and familiar foe Deathstroke is lurking in the shadows – both waiting to pounce. Ultimately, the Teen Titans will need to battle their enemies and their own doubts to unite and overcome the malicious forces around them in this twisting tale of intrigue, adventure and deception."},
+      {name: "movie-12", link: "#", imagePath: "images/movie-12.jpg", title: "Vixen: The Movie (2017)", description: "Originally from Africa, Mari McCabe grew up an orphan after her parents were killed by local greed, corruption and wanton violence. But Mari refuses to succumb to the terrors surrounding her. Inheriting her family's Tantu Totem, Mari can access the powers of animals – anything from the strength of a gorilla to the speed of a cheetah. As Vixen, she fights valiantly to protect the world from threats like those that claimed her family."}
+    ];
+
+block vendors
+  link(rel="stylesheet", href="libs/slick-1.8.0/slick/slick.css")
+  link(rel="stylesheet", href="stylesheets/slick-theme.css")
+  link(rel="stylesheet", href="stylesheets/style.css")
+  link(rel="stylesheet", href="stylesheets/movies.css")
+  //-- link(rel="stylesheet", href="stylesheets/filter.css")
+
+block scripts
+  script(src="libs/slick-1.8.0/slick/slick.min.js")
+  script(src="javascripts/movies.js")
+
+mixin intro(slides)
+  +b.SECTION.intro
+    each slide in slides
+      +b.DIV.poster
+        +e.PICTURE.picture
+          +e.IMG(src= slide.imagePath, alt= slide.name)
+        +e.DIV.info
+          +e.P.title= slide.title
+          +e.P.description= slide.description
+
+mixin movieShort(movie)
+  +b.DIV.movie
+    +e.A(href= movie.link)
+      +e.PICTURE.picture
+        +e.IMG(src= movie.imagePath, alt= movie.name)
+      +e.P.title= movie.title
+
+mixin movie(movie)
+  +b.DIV.movie
+    +e.PICTURE.picture
+      +e.A(href= movie.link)
+        +e.IMG(src= movie.imagePath, alt= movie.name)
+    +e.DIV.description
+      +e.P.title= movie.title
+      +e.P.text.text= movie.description
+
+mixin moviePoster(poster)
+  picture
+    a(href= poster.link)
+      img(src= poster.imagePath, alt= poster.name)
+
+block content
+  +b.MAIN.content
+    +e.ASIDE.filter
+      +filter()
+    +e.ARTICLE.movies-wrap.comics-wrap
+      +intro(introSlides)
+      +b.DIV.movies-container
+        +b.SECTION.recomended-movies
+          +e.H3.title Recomended movies
+          +e.DIV.content.content
+            each movie in recomendedMovies
+              +movieShort(movie)
+        +b.SECTION.anounced-movies
+          +e.H3.title Anounced movies
+          +e.DIV.slider(slickDots="center", doted="true")
+            each poster in announcedMovies
+              +moviePoster(poster)
+        +b.SECTION.movies
+          +e.H3.title Movies
+          +e.DIV.content.content
+            each movie in movies
+              +movie(movie)

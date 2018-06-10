@@ -1,0 +1,27 @@
+.content section h3 {
+  background-color: #161616;
+  margin-left: 100%;
+  transform: translateX(-100%);
+  /* width: 100%; */
+  /* text-align: center; */
+  display: inline;
+  white-space: nowrap;
+  color: white;
+  font-size: 28px;
+  font-family: Roboto, sans-serif;
+  text-transform: uppercase;
+  user-select: none;
+  cursor: default;
+  display: inline-block;
+  padding: 1rem 300px 1rem 2rem;
+}
+
+.content {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: wrap row;
+  margin: 0 auto;
+  overflow: hidden;
+}
