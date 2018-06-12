@@ -14,10 +14,6 @@ $signUpForm.submit(e => {
 
   fetch('/user', {
     method: 'post',
-    headers: {
-      'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
-    'Content-Type': 'multipart/form-data'
-    },
     body: formData
   })
   .then(response => {
