@@ -26,6 +26,10 @@ module.exports = class MySQL {
   }
 
   insert(tableName, values) {
-
+    return new Promise((resolve, reject) => {
+      this.pool.query(`INSERT INTO ${tableName}(username, password, image) VALUES('${values.join("', '")}')`)
+        .then(resolve)
+        .catch(reject);
+    });
   }
 }
