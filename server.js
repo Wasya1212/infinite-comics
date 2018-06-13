@@ -26,6 +26,28 @@ let poolConnection = new mysql({
   database: 'sql7242175'
 });
 
+const User = require('./controllers/index')(poolConnection).User;
+
+let newUser = new User({
+  username: 'somename',
+  nickname: 'nickanme2',
+  email: 'email2',
+  password: 'password'
+});
+
+newUser.save()
+  .then(result => {
+    console.log("User created!");
+    console.log(result);
+  })
+  .catch(err => {
+    if (err.errno == 1062) {
+      console.error("User is already register!");
+    } else {
+      console.error(err);
+    }
+  });
+
 const user = {
   username: 'leonardo.1212@yandex.ua12',
   password: 'wasya121212',

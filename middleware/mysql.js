@@ -1,5 +1,6 @@
 const mysql = require('promise-mysql');
 const fs = require('fs');
+const path = require('path');
 
 module.exports = class MySQL {
   constructor(params) {
@@ -7,29 +8,29 @@ module.exports = class MySQL {
   }
 
   createTable(tableName) {
-    return new Promise((resolve, reject) => {
-      this.pool.query(fs.readFileSync(`../models/${tableName}.sql`).toString())
-        .then(resolve)
-        .catch(reject);
-    });
+    const createQuery = fs.readFileSync(path.resolve(__dirname, `../models/${tableName}.sql`)).toString();
+    return this.pool.query(createQuery);
   }
 
   getList(tableName) {
-    return new Promise((resolve, reject) => {
-      this.pool.query(`SELECT * FROM ${tableName}`)
-        .then(resolve)
-        .catch(err => {
-          err.errtable = tableName;
-          reject(err);
-        });
-    });
+    return this.pool.query(`SELECT * FROM ${tableName}`);
   }
 
   insert(tableName, values) {
-    return new Promise((resolve, reject) => {
-      this.pool.query(`INSERT INTO ${tableName}(username, password, image) VALUES('${values.join("', '")}')`)
-        .then(resolve)
-        .catch(reject);
-    });
+    let tableFields = Object.keys(values);
+    let tableFieldsValues = tableFields.map(key => values[key]);
+
+    return this.pool.query(`INSERT INTO ${tableName}(${tableFields.join(', ')}) VALUES('${tableFieldsValues.join("', '")}')`)
+      .catch(err => {
+        if (err.errno == 1146) {
+          return this.createTable(tableName)
+            .then(newTable => {
+              console.log('New table created!\n', newTable);
+              return this.insert(tableName, values);
+            })
+        } else {
+          throw err;
+        }
+      });
   }
 }

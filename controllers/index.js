@@ -13,3 +13,9 @@ class Controller {
         }
     }
 }
+
+module.exports = poolConnection => {
+  return {
+    User: require('./user')(poolConnection)
+  };
+}

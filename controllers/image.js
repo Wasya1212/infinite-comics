@@ -1,4 +1,4 @@
-class Class {
+module.exports = class Image {
   constructor(image) {
     this.path = image.path;
     this.size = image.size;
@@ -13,5 +13,13 @@ class Class {
       author: image.author,
       format: image.format
     };
+  }
+
+  static get defaultOriginalImage() {
+    return { id: 1, path: 'avatar-original.png' };
+  }
+
+  static get defaultCompressedImage() {
+    return { id: 1, path: 'avatar.png' };
   }
 }
