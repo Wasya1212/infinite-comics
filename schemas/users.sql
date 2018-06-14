@@ -5,8 +5,8 @@ CREATE TABLE users (
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(100) NOT NULL,
   admin BOOLEAN NOT NULL DEFAULT 0,
-  originalImagePath VARCHAR(100) NOT NULL,
-  compressedImagePath VARCHAR(100) NOT NULL,
+  originalImageUrl VARCHAR(100) NOT NULL,
+  compressedImageUrl VARCHAR(100) NOT NULL,
   originalImageId INT UNSIGNED DEFAULT 1,
   compressedImageId INT UNSIGNED DEFAULT 1
 );

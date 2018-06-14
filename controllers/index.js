@@ -16,6 +16,7 @@ class Controller {
 
 module.exports = poolConnection => {
   return {
-    User: require('./user')(poolConnection)
+    User: require('./user')(poolConnection),
+    Image: require('./image')(poolConnection)
   };
 }

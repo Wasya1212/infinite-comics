@@ -1,24 +1,22 @@
 'use strict';
 
 const mysql = require('../middleware/mysql');
-const Image = require('./image');
+const Image = require('./image')();
 
 module.exports = poolConnection => {
   return class User {
-    constructor(user, image) {
-      const {originalImage, compressedImage} = image || {originalImage: Image.defaultOriginalImage, compressedImage: Image.defaultCompressedImage};
-
+    constructor(user) {
       this.username = user.username;
       this.nickname = user.nickname;
       this.email = user.email;
       this.password = user.password;
       this.originalImage = {
-        path: originalImage.path,
-        id: originalImage.id
+        url: Image.defaultOriginalImage.url,
+        id: Image.defaultOriginalImage.id
       };
       this.compressedImage = {
-        path: compressedImage.path,
-        id: compressedImage.id
+        url: Image.defaultCompressedImage.url,
+        id: Image.defaultCompressedImage.id
       };
     }
 
@@ -28,9 +26,9 @@ module.exports = poolConnection => {
         nickname: this.nickname,
         email: this.email,
         password: this.password,
-        originalImagePath: this.originalImage.path,
+        originalImageUrl: this.originalImage.url,
         originalImageId: this.originalImage.id,
-        compressedImagePath: this.compressedImage.path,
+        compressedImageUrl: this.compressedImage.url,
         compressedImageId: this.compressedImage.id
       });
       // return poolConnection.createTable(User.tableName);

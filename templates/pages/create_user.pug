@@ -20,9 +20,12 @@ block content
         +e.LABEL.label Password
         +e.INPUT.password#password-input(name="password", type="password")
       +e.P
-        +e.LABEL.label User image
-        +e.INPUT.image#user-picture-input(name="image", type="file")
+        +e.LABEL.label Nickname
+        +e.INPUT.password#nickname-input(name="nickname")
       +e.P
-        //-- +e.INPUT(type="submit", value="sign up")
-        button submits
+        +e.LABEL.label Email
+        +e.INPUT.image#email-input(name="email", type="email")
+      +e.P
+        +e.INPUT(type="submit", value="sign up")
+        //- button submits
         

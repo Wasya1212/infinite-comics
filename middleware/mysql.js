@@ -8,7 +8,7 @@ module.exports = class MySQL {
   }
 
   createTable(tableName) {
-    const createQuery = fs.readFileSync(path.resolve(__dirname, `../models/${tableName}.sql`)).toString();
+    const createQuery = fs.readFileSync(path.resolve(__dirname, `../schemas/${tableName}.sql`)).toString();
     return this.pool.query(createQuery);
   }
 
