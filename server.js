@@ -18,8 +18,8 @@ cloudinary.config({
 let stream = cloudinary.v2.uploader.upload_stream(function(error, result){console.log(result)});
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('sql7242175', 'sql7242175', 'UcG1k1f9zf', {
-  host: 'sql7.freemysqlhosting.net',
+const sequelize = new Sequelize('user271351_infinite_comics', 'user271351', 'tfp7cRRoug4D', {
+  host: '46.21.250.90',
   dialect: 'mysql',
   operatorsAliases: Sequelize.Op,
   pool: {
