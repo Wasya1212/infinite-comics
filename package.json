@@ -22,8 +22,12 @@
     "multiparty": "^4.1.4",
     "my-sql": "^1.2.15",
     "mysql": "^2.15.0",
+    "mysql2": "^1.5.3",
     "npm": "^6.0.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "promise-mysql": "^3.2.1",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "sequelize": "^4.37.10"
   }
 }

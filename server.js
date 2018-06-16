@@ -17,7 +17,37 @@ cloudinary.config({
 
 let stream = cloudinary.v2.uploader.upload_stream(function(error, result){console.log(result)});
 
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('sql7242175', 'sql7242175', 'UcG1k1f9zf', {
+  host: 'sql7.freemysqlhosting.net',
+  dialect: 'mysql',
+  operatorsAliases: Sequelize.Op,
+  pool: {
+    max: 10,
+    min: 0,
+    idle: 100000
+  }
+});
 
+let Comics = sequelize.define('comics', {
+  title: {
+    type: Sequelize.STRING,
+    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
+  },
+  description: {
+    type: Sequelize.STRING
+  }
+}, {
+  freezeTableName: true // Model tableName will be the same as the model name
+});
+
+Comics.sync({force: true}).then(function () {
+  // Table created
+  return Comics.create({
+    title: 'marvel',
+    lastName: 'some desc'
+  });
+});
 
 // const User = require('./controllers/index')(poolConnection).User;
 // const Image = require('./controllers/index')(poolConnection).Image;

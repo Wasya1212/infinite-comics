@@ -12,8 +12,16 @@ module.exports = class MySQL {
     return this.pool.query(createQuery);
   }
 
-  getList(tableName) {
-    return this.pool.query(`SELECT * FROM ${tableName}`);
+  getList(tableName, selectvalues = {}) {
+    let sql = Object.entries(selectvalues)
+      .map(column => {
+        return `${column[0]}'${column[1]}'`;
+      })
+      .join(' AND ');
+
+    console.log(sql);
+
+    return this.pool.query(`SELECT * FROM ${tableName} ${sql}`);
   }
 
   insert(tableName, values) {

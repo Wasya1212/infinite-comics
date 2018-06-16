@@ -34,6 +34,14 @@ module.exports = poolConnection => {
       // return poolConnection.createTable(User.tableName);
     }
 
+    static getUser(userId) {
+
+    }
+
+    static getUsers() {
+      return poolConnection.getList(User.tableName, {id: '>1', ff: 2});
+    }
+
     static get tableName() {
       return 'users';
     }

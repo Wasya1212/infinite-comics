@@ -1,3 +1,21 @@
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy;
+
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//     User.findOne({ username: username }, function (err, user) {
+//       if (err) { return done(err); }
+//       if (!user) {
+//         return done(null, false, { message: 'Incorrect username.' });
+//       }
+//       if (!user.validPassword(password)) {
+//         return done(null, false, { message: 'Incorrect password.' });
+//       }
+//       return done(null, user);
+//     });
+//   }
+// ));
+
 module.exports = poolConnection => {
   const User = require('../controllers/index')(poolConnection).User;
   const Image = require('../controllers/index')(poolConnection).Image;
@@ -5,7 +23,14 @@ module.exports = poolConnection => {
   return {
     get: (req, res) => {
       res.set('Content-Type', 'text/html');
-      res.render('create_user.pug');
+      User.getUsers()
+        .then(users => {
+          console.log(users);
+          res.render('create_user.pug');
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     post: (req, res) => {
       let newUser = new User({
