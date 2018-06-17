@@ -14,6 +14,10 @@
   "author": "wasya1212",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^2.0.1",
+    "bcrypt-nodejs": "0.0.3",
+    "bcrypt-promise": "^2.0.0",
+    "bcrypt-promised": "^1.0.1",
     "body-parser": "^1.18.3",
     "busboy": "^0.2.14",
     "cloudinary": "^1.11.0",

@@ -42,13 +42,13 @@ module.exports = (app) => {
   // characters
   app.get('/characters', charactersRouter.get);
 
-  // user
-  app.get('/user', userRouter.get);
-  app.post('/user', userRouter.post);
+
+  // app.post('/user', userRouter.post);
 
   // not found
-  app.get('/*', (req, res) => {
-    res.set('Content-Type', 'text/plain');
-    res.send("Fuck you!");
-  });
+  // app.get('/*', (req, res, next) => {
+  //   res.set('Content-Type', 'text/plain');
+  //   res.send("Fuck you!");
+  //   next();
+  // });
 }

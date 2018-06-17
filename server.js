@@ -6,7 +6,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const Busboy = require('busboy');
 const cloudinary = require('cloudinary');
-
+const passport = require('./middleware/passport');
 const PORT = process.env.PORT || 3000;
 
 cloudinary.config({
@@ -17,37 +17,63 @@ cloudinary.config({
 
 let stream = cloudinary.v2.uploader.upload_stream(function(error, result){console.log(result)});
 
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('user271351_infinite_comics', 'user271351', 'tfp7cRRoug4D', {
-  host: '46.21.250.90',
-  dialect: 'mysql',
-  operatorsAliases: Sequelize.Op,
-  pool: {
-    max: 10,
-    min: 0,
-    idle: 100000
-  }
-});
+// const Sequelize = require('sequelize');
+// const sequelize = new Sequelize('user271351_infinite_comics', 'user271351', 'tfp7cRRoug4D', {
+//   host: '46.21.250.90',
+//   dialect: 'mysql',
+//   operatorsAliases: Sequelize.Op,
+//   pool: {
+//     max: 10,
+//     min: 0,
+//     idle: 100000
+//   }
+// });
 
-let Comics = sequelize.define('comics', {
-  title: {
-    type: Sequelize.STRING,
-    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
-  },
-  description: {
-    type: Sequelize.STRING
-  }
-}, {
-  freezeTableName: true // Model tableName will be the same as the model name
-});
+// let Comics = sequelize.define('comics', {
+//   title: {
+//     type: Sequelize.STRING,
+//     field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
+//   },
+//   description: {
+//     type: Sequelize.STRING
+//   }
+// }, {
+//   freezeTableName: true // Model tableName will be the same as the model name
+// });
 
-Comics.sync({force: true}).then(function () {
-  // Table created
-  return Comics.create({
-    title: 'marvel',
-    lastName: 'some desc'
-  });
-});
+// Comics.sync({force: true}).then(function () {
+//   // Table created
+//   return Comics.create({
+//     title: 'marvel',
+//     lastName: 'some desc'
+//   });
+// });
+
+// const UserModel = require('./models/user')(sequelize);
+//
+// UserModel.sync({force: false}).then(() => {
+//   UserModel.create({
+//     username: "some user 234-" + Date.now(),
+//     password: "some password"
+//   })
+//   .then(user => {
+//     // console.log(user);
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   });
+// });
+
+// UserModel.findOne({
+//   where: {username: 'some user 234-1529240872288'}
+// })
+// .then(user => {
+//   console.log(user);
+//   UserModel.validPassword('some password', '$2b$12$C9TNZh6Dz7BggKLtouuJeuR0HNllE.AKczbYk7NBPS1g3t90oP9LC')
+//   .then(isMatch => {
+//     console.log(isMatch);
+//   });
+// });
 
 // const User = require('./controllers/index')(poolConnection).User;
 // const Image = require('./controllers/index')(poolConnection).Image;
@@ -115,8 +141,60 @@ app.use(bodyParser.json());
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/templates/pages'));
 
-// Router
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// user
+app.get('/user', (req, res) => {
+  res.set('Content-Type', 'text/html');
+  res.render('create_user.pug');
+});
+
+// login
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/user',
+    failureFlash: true
+}));
+// app.post('/login', (req, res, next) => {
+//   passport.authenticate('local', function(err, user, info) {
+//     if (err) { return next(err); }
+//
+//     if (!user) {
+//       console.log("REDIRECT", 'login')
+//       return res.redirect('/login');
+//     }
+//
+//     req.logIn(user, function(err) {
+//       if (err) { return next(err); }
+//
+//       console.log("REDIRECT", user)
+//       return res.render('movies.pug');
+//     });
+//   })(req, res, next);
+// });
+
+// all
+app.get('/*', (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect('/user');
+  } else {
+    next();
+  }
+});
+
 require('./routes/index')(app);
+
+
+
+// Router
+
+
+
+
+// app.post('/login', passport.authenticate('local', { successRedirect: '/',
+//                                                     failureRedirect: '/login' }));
 
 // var file_reader = fs.createReadStream('my_picture.jpg').pipe(stream)
 // app.post('/user', (req, res) => {
