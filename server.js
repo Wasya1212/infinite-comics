@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const Busboy = require('busboy');
 const cloudinary = require('cloudinary');
 const passport = require('./middleware/passport');
+const session = require('express-session');
+const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT || 3000;
 
 cloudinary.config({
@@ -16,6 +19,19 @@ cloudinary.config({
 });
 
 let stream = cloudinary.v2.uploader.upload_stream(function(error, result){console.log(result)});
+
+// const Sequelize = require('sequelize');
+// const SequelizeStore = require('connect-session-sequelize')(session.Store);
+// const sequelize = new Sequelize('user271351_infinite_comics', 'user271351', 'tfp7cRRoug4D', {
+//   host: '46.21.250.90',
+//   dialect: 'mysql',
+//   operatorsAliases: Sequelize.Op,
+//   pool: {
+//     max: 10,
+//     min: 0,
+//     idle: 100000
+//   }
+// });
 
 // const Sequelize = require('sequelize');
 // const sequelize = new Sequelize('user271351_infinite_comics', 'user271351', 'tfp7cRRoug4D', {
@@ -141,9 +157,44 @@ app.use(bodyParser.json());
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/templates/pages'));
 
+app.use(cookieParser());
+
+// Session
+app.use(session({
+  secret: 'AnoHana',
+  cookie: { maxAge: 14 * 24 * 60 * 60 * 1000 },
+  resave: true,
+  saveUninitialized: true,
+  // cookie: {
+  //   // secure: true,
+  //   maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  // }
+  // store: SequelizeStore({
+  //       db: sequelize
+  //   })
+}));
+
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['key'],
+//   maxAge: 24 * 60 * 60 * 1000 // 24 hours
+// }))
+
+// headers
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(function(err, req, res, next) {
+    console.log(err);
+});
 
 // user
 app.get('/user', (req, res) => {
@@ -155,8 +206,11 @@ app.get('/user', (req, res) => {
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/user',
-    failureFlash: true
-}));
+    badRequestMessage: 'Missing username or password.',
+    failureFlash: false
+}), (req, res) => {
+  res.redirect('/');
+});
 // app.post('/login', (req, res, next) => {
 //   passport.authenticate('local', function(err, user, info) {
 //     if (err) { return next(err); }
