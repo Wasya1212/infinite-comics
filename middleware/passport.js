@@ -16,7 +16,7 @@ const sequelize = new Sequelize('user271351_infinite_comics', 'user271351', 'tfp
 const User = require('../models/user')(sequelize);
 
 passport.serializeUser((user, done) => {
-  console.log("USER:", user);
+  // console.log("USER:", user);
   done(null, user.id);
 });
 
@@ -26,6 +26,7 @@ passport.deserializeUser((id, done) => {
     where: {id: id}
   })
   .then(({dataValues: user}) => {
+    // console.log("LOGOUT USER", user);
     done(null, user);
   })
   .catch(err => {
@@ -34,20 +35,22 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(new LocalStrategy((username, password, done) => {
-  console.log(username)
   User.findOne({
     where: {username: username}
   })
-  .then(({dataValues: user}) => {
+  .then((user) => {
     if (!user) {
+      console.log("user not found");
       return done(null, false, { message: 'Incorrect username.' });
     }
 
     User.validPassword(password, user.password)
       .then(isMatch => {
         if (isMatch) {
+          console.log("USER IS CORRECT");
           return done(null, user);
         } else {
+          console.log("USER IS NOT CORRECT");
           return done(null, false, { message: 'Incorrect password.' });
         }
       })
