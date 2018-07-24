@@ -6,7 +6,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const Busboy = require('busboy');
 const cloudinary = require('cloudinary');
-const passport = require('./middleware/passport');
+const passport = require('./libs/passport');
 const session = require('express-session');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
@@ -219,10 +219,10 @@ app.use(function(err, req, res, next) {
 });
 
 // user
-app.get('/user', (req, res) => {
-  res.set('Content-Type', 'text/html');
-  res.render('create_user.pug');
-});
+// app.get('/user', (req, res) => {
+//   res.set('Content-Type', 'text/html');
+//   res.render('create_user.pug');
+// });
 
 
 // app.post('/login', (req, res, next) => {
@@ -244,25 +244,25 @@ app.get('/user', (req, res) => {
 // });
 
 // all
-app.get('/*', (req, res, next) => {
-  console.log(req.session.passport);
-  if (!req.isAuthenticated()) {
-    res.redirect('/user');
-  } else {
-    next();
-  }
-});
+// app.get('/*', (req, res, next) => {
+//   console.log(req.session.passport);
+//   if (!req.isAuthenticated()) {
+//     res.redirect('/user');
+//   } else {
+//     next();
+//   }
+// });
 
 require('./routes/index')(app);
 
-app.get('/logout', function(req, res) {
-  console.log('logout', req.session);
-  req.logout();
-  req.session.destroy(() => {
-    // res.clearCookie('connect.sid', { path: '/' });
-    res.redirect('/');
-  });
-});
+// app.get('/logout', function(req, res) {
+//   console.log('logout', req.session);
+//   req.logout();
+//   req.session.destroy(() => {
+//     // res.clearCookie('connect.sid', { path: '/' });
+//     res.redirect('/');
+//   });
+// });
 
 
 // Router

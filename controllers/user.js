@@ -1,53 +1,32 @@
 'use strict';
 
-const mysql = require('../middleware/mysql');
-const Image = require('./image')();
+const User = require('../models/user');
 
-module.exports = poolConnection => {
-  return class User {
-    constructor(user) {
-      this.username = user.username;
-      this.nickname = user.nickname;
-      this.email = user.email;
-      this.password = user.password;
-      this.originalImage = {
-        url: Image.defaultOriginalImage.url,
-        id: Image.defaultOriginalImage.id
-      };
-      this.compressedImage = {
-        url: Image.defaultCompressedImage.url,
-        id: Image.defaultCompressedImage.id
-      };
-    }
+class UserController {
+  constructor() {
+    this.tableName = User.getTableName;
+    this.validPassword = User.validPassword;
+  }
 
-    save() {
-      return poolConnection.insert(User.tableName, {
-        username: this.username,
-        nickname: this.nickname,
-        email: this.email,
-        password: this.password,
-        originalImageUrl: this.originalImage.url,
-        originalImageId: this.originalImage.id,
-        compressedImageUrl: this.compressedImage.url,
-        compressedImageId: this.compressedImage.id
-      });
-      // return poolConnection.createTable(User.tableName);
-    }
+  save(conditions) {
+    return User.create(conditions);
+  }
 
-    static getUser(userId) {
+  findById(id) {
+    return User.findById(id);
+  }
 
-    }
+  findByUsername(username) {
+    return User.findOne({ where: { username: username } });
+  }
 
-    static getUsers() {
-      return poolConnection.getList(User.tableName, {id: '>1', ff: 2});
-    }
+  findAllByUsernames(username) {
+    return User.findAll({ where: { username: username } });
+  }
 
-    static get tableName() {
-      return 'users';
-    }
+  findOne(conditions) {
+    return User.findOne({ where: conditions });
+  }
+}
 
-    static createUser(userParams, image) {
-      return new User(userParams, image);
-    }
-  };
-};
+module.exports = new UserController();

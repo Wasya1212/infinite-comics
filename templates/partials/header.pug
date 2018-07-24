@@ -7,3 +7,25 @@ mixin header(items)
       each item in items
         +e.A.nav-item.item(href= item.link)
           +e.SPAN= item.title
+    +b.DIV.profile
+      +e.DIV.container
+        if user
+          +b.DIV.dropdown
+            +b.PICTURE.profile__picture
+              +e.IMG.icon(src="https://i.imgur.com/cXz9gpv.jpg")
+            +e.DIV.content
+              +e.LI.item
+                +e.A(href="/profile") profile
+              +e.LI.item
+                +e.A(href="/history") history
+              +e.LI.item
+                +e.A(href="/settings") settings
+              hr
+              +e.LI.item
+                +e.A(href="/help") help
+              hr
+              +e.LI.item
+                +e.A(href="/logout") Logout
+        else
+          +e.A.login-btn.button(href="/login") Login
+          +e.A.registration-btn.button(href="/registration") Sign up

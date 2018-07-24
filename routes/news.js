@@ -1,8 +1,7 @@
-module.exports = poolConnection => {
-  return {
-    get: (req, res) => {
-      res.set('Content-Type', 'text/html');
-      res.render('news.pug');
-    }
-  };
+module.exports.get = (req, res, next) => {
+  res.set('Content-Type', 'text/html');
+  res.render('news.pug', {
+    user: req.user
+  });
+  next();
 }

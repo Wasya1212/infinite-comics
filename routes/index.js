@@ -10,17 +10,25 @@ let poolConnection = new mysql({
 });
 
 // get routes controllers
-const frontpageRouter = require('./frontpage')(poolConnection);
-const shopRouter = require('./shop')(poolConnection);
-const newsRouter = require('./news')(poolConnection);
-const moviesRouter = require('./movies')(poolConnection);
-const tvRouter = require('./tv')(poolConnection);
-const comicsRouter = require('./comics')(poolConnection);
-const charactersRouter = require('./characters')(poolConnection);
-const userRouter = require('./user')(poolConnection);
+const frontpageRouter = require('./frontpage');
+const shopRouter = require('./shop');
+const newsRouter = require('./news');
+const moviesRouter = require('./movies');
+const tvRouter = require('./tv');
+const comicsRouter = require('./comics');
+const charactersRouter = require('./characters');
+const authRouter = require('./auth');
 
 // set controllers
 module.exports = (app) => {
+  // authentication
+  app.get('/login', authRouter.login.get);
+  // app.post('/login', authRouter.login);
+  app.get('/logout', authRouter.logout);
+
+  // check auth
+  app.get('/*', authRouter.checkAuth);
+
   // frontpage
   app.get('/', frontpageRouter.get);
 
