@@ -18,6 +18,7 @@ const tvRouter = require('./tv');
 const comicsRouter = require('./comics');
 const charactersRouter = require('./characters');
 const authRouter = require('./auth');
+const adminRouter = require('./admin');
 
 // set controllers
 module.exports = (app) => {
@@ -31,6 +32,9 @@ module.exports = (app) => {
 
   // frontpage
   app.get('/', frontpageRouter.get);
+
+  // admin
+  app.get('/admin', adminRouter.get);
 
   // shop
   app.get('/shop', shopRouter.get);

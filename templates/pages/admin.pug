@@ -1,0 +1,24 @@
+extends ../layout/default
+
+block vars
+  -
+    var page = {title: "comics"};
+
+block vendors
+  link(rel="stylesheet", href="stylesheets/style.css")
+  link(rel="stylesheet", href="stylesheets/admin.css")
+
+block scripts
+  script(src="javascripts/admin.js")
+
+block content
+  +b.MAIN.content
+    +b.SECTION.schemas#shemas-panel
+      +e.NAV.navigation
+        +e.A.scheme(nohref, schemeName="comics") comics
+        +e.A.scheme(nohref, schemeName="movies") movies
+        +e.A.scheme(nohref, schemeName="characters") characters
+        +e.A.scheme(nohref, schemeName="tv") tv
+        +e.A.scheme(nohref, schemeName="news") news
+        +e.A.scheme(nohref, schemeName="shop") shop
+    +b.SECTION.fields
