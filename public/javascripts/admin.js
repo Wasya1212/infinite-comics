@@ -17,8 +17,9 @@ const SHEMES = {
 };
 
 function getSchemeData(shemeName) {
-  fetch(`/${SHEMES[shemeName]}`, { method: 'POST' })
+  fetch(`/${SHEMES[shemeName]}/all`, { method: 'POST' })
     .then(resolve => {
       console.log(resolve);
-    });
+    })
+    .catch(console.error);
 }
