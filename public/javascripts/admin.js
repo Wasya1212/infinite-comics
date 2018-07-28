@@ -23,3 +23,19 @@ function getSchemeData(shemeName) {
     })
     .catch(console.error);
 }
+
+//*****************************************************
+
+let adminPanel = new AdminPanelController(document.querySelector('main.content'));
+let adminTypes = adminPanel.Types;
+
+adminPanel.addScheme('characters', [{
+  type: adminTypes.STRING
+  // getData: container => { // for own object
+  //   container
+  // }
+}]);
+
+adminPanel.addScheme('comics');
+
+adminPanel.init();
