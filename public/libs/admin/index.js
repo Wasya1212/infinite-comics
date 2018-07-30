@@ -9,9 +9,12 @@ class AdminPanelTypes {
     return this.types_names.join(',');
   }
 
-  declareType(type_name, dom_view) {
+  declareType(type_name, dom_view, options = {}) {
     if (typeof type_name !== 'string') {
       throw Error("Error declare new type: 'type name must be a String type!'");
+    }
+    if (!isNode(dom_view)) {
+      throw Error("dom_view must be a DOM element");
     }
 
     let upperTypeName = type_name.toUpperCase();
@@ -19,50 +22,45 @@ class AdminPanelTypes {
     this.types[upperTypeName] = Object.create(null);
 
     this.types[upperTypeName].name = type_name;
-    this.types[upperTypeName].renderer = () => {};
+    this.types[upperTypeName].renderer = dom_view;
     this.types_names.push(upperTypeName);
 
-    this.types[upperTypeName].create = (options = {}) => {
-      // create an dom item in accordance with the type
-      let dom_params = {
-        classNames: options.classNames || [],
-        id: options.id || null,
-        beforeCreate: options.beforeCreate || function () {},
-        afterCreate: options.afterCreate || function () {}
-      };
+    // create an dom item in accordance with the type
+    let dom_params = {
+      classNames: options.classNames || [],
+      id: options.id || '',
+      beforeCreate: options.beforeCreate || function () {},
+      afterCreate: options.afterCreate || function () {},
+      getData: options.getData || function () {},
+      setData: options.setData || function () {}
+    };
 
+    this.types[upperTypeName].createDOM = () => {
       dom_params.beforeCreate();
 
       let $_elementContainer = document.createElement('div');
 
-      $_elementContainer.classList.add('admin-panel-element');
-
-      dom_params.classNames.forEach(className => {
-        $_elementContainer.classList.add(className);
-      });
-
-      if (dom_params.id) {
-        $_elementContainer.id = dom_params.id;
-      }
-
-      $_elementContainer.setAttribute('panelType', upperTypeName);
-
-      // dom view is a simple html element
-      // that will display the element element
-      // of a particular type
       try {
-        $_elementContainer.appendChild(dom_view);
+        $_elementContainer.classList.add('admin-panel-element');
+        $_elementContainer.id = dom_params.id;
+        $_elementContainer.setAttribute('panelType', upperTypeName);
+        $_elementContainer.appendChild(dom_view.cloneNode(true));
+
+        dom_params.classNames.forEach(className => {
+          $_elementContainer.classList.add(className);
+        });
       } catch (err) {
-        throw Error("Enter dom view container");
+        throw new Error(err);
+      } finally {
+        dom_params.afterCreate();
       }
 
-      dom_params.afterCreate();
-
-      this.dom_renderer_element = $_elementContainer;
-
-      // function for getting data
-      // from dom_renderer_element
-      this.types[upperTypeName].renderer = this.dom_renderer_element;
+      return {
+        dom_view: $_elementContainer,
+        getData: () => {
+          dom_params.getData($_elementContainer);
+        }
+      };
     }
   }
 
@@ -75,6 +73,48 @@ class AdminPanelTypes {
   }
 }
 
+class AdminScheme {
+  constructor(name, container) {
+    this.name = name;
+    this.field = Object.create(null);
+    this.$_container = container;
+  }
+
+  addField(admin_type, name) {
+    if (!name) {
+      throw Error("Plese enter scheme name!");
+    }
+
+    this.field[name] = Object.create(null);
+
+    this.field[name].value = null;
+    this.field[name].title = name;
+    this.field[name].type_name = admin_type.name;
+
+    let {dom_view, getData} = admin_type.createDOM();
+
+    this.field[name].dom_view = dom_view;
+    this.field[name].getData = getData;
+
+    // this.field[name].validation = function() {
+    //   this.dom_view.onChange(function(e) {
+    //     this.value = this.type.getData();
+    //   });
+    //   validation(this.value, this.dom_view);
+    // }
+  }
+
+  getData() {
+    let data = Object.create(null);
+
+    for (let field in this.field) {
+      data[field] = this.field[field].getData();
+    }
+
+    return data;
+  }
+}
+
 class AdminPanelController {
   constructor($_container) {
     // parent element for all contoller DOM elements
@@ -83,52 +123,42 @@ class AdminPanelController {
     // create control input types
     this.types = new AdminPanelTypes();
 
-    let STRING_VIEW = document.createElement('input');
+    let STRING_VIEW = data => {
+      return document.createElement('input');
+    }
 
-    this.types.declareType('String', STRING_VIEW);
-    this.types.declareType('Text');
-    this.types.declareType('Check');
-    this.types.declareType('Multicheck');
-    this.types.declareType('File');
-    this.types.declareType('Baseobj');
+    this.types.declareType('String', STRING_VIEW(), {
+      getData: container => {
+        console.log(container);
+        return container.querySelector('input') || null;
+      }
+    });
+    this.types.declareType('Text', STRING_VIEW());
+    this.types.declareType('Check', STRING_VIEW());
+    this.types.declareType('MultiCheck', STRING_VIEW());
+    this.types.declareType('File', STRING_VIEW());
+    this.types.declareType('MultiFile', STRING_VIEW());
+    this.types.declareType('Baseobj', STRING_VIEW());
 
     this.schemes = [];
+    this.scheme = Object.create(null);
   }
 
-  addScheme(scheme_name, scheme_fields = []) {
+  addScheme(scheme_name, scheme_fields = {}) {
     if (!scheme_name) {
       throw Error("Plese enter scheme name");
-    }
-    if (!(scheme_fields instanceof Array)) {
-      throw Error("Fields (second parameter) must be array of field objects");
-    }
+    };
 
-    let fields = [];
+    this.scheme[scheme_name] = new AdminScheme(scheme_name);
 
-    for (let i = 0; i < scheme_fields.length; i++) {
-      let schemeType = scheme_fields[i].type;
-
-      if (!this.types.checkType(schemeType)) {
-        console.error("Field type not declareted in admin panel!");
-      } else {
-        schemeType.create({
-          classNames: scheme_fields[i].classNames,
-          id: scheme_fields[i].id,
-          beforeCreate: scheme_fields[i].beforeCreate,
-          afterCreate: scheme_fields[i].afterCreate
-        });
-
-        fields.push({
-          type: schemeType.name,
-          dom_view: schemeType.renderer
-        });
+    for (let field in scheme_fields) {
+      if (!this.types.checkType(scheme_fields[field].type)) {
+        throw Error("Field type not declareted in admin panel!");
       }
+      this.scheme[scheme_name].addField(scheme_fields[field].type, field);
     }
 
-    this.schemes.push({
-      name: scheme_name.toString(),
-      fields: fields
-    });
+    return this.scheme[scheme_name];
   }
 
   get Types() {
@@ -136,9 +166,56 @@ class AdminPanelController {
   }
 
   init() {
-    this.$_container.innerHTML = '';
-    this.schemes[0].fields.forEach(field => {
-      this.$_container.appendChild(field.dom_view);
-    });
+    this.clearMainContainer();
+
+    let $_shemes_menu = this.buildSidePanel();
+    let $_schema_data = this.getSchemaData(this.Schemes['characters']);
+
+    this.$_schema_container = document.createElement('section');
+    this.$_data_container = document.createElement('section');
+
+    this.$_schema_container.appendChild($_shemes_menu);
+    this.$_data_container.appendChild($_schema_data);
+
+    this.$_container.appendChild(this.$_schema_container);
+    this.$_container.appendChild(this.$_data_container);
   }
+
+  buildSidePanel() {
+    let $_schemes_panel = document.createElement('nav');
+    $_schemes_panel.classList.add('admin-schemes');
+
+    Object.keys(this.Schemes).forEach(scheme => {
+      let $_scheme_switcher = document.createElement('li');
+
+      $_scheme_switcher.textContent = scheme;
+      $_schemes_panel.appendChild($_scheme_switcher);
+    });
+
+    return $_schemes_panel;
+  }
+
+  getSchemaData(schema) {
+    let $_data_grid = document.createElement('h1');
+
+    console.log(schema);
+
+    $_data_grid.textContent = "hello world";
+    return $_data_grid;
+  }
+
+  clearMainContainer() {
+    this.$_container.innerHTML = '';
+  }
+
+  get Schemes() {
+    return this.scheme;
+  }
+}
+
+function isNode(o){
+  return (
+    typeof Node === "object" ? o instanceof Node :
+    o && typeof o === "object" && typeof o.nodeType === "number" && typeof o.nodeName==="string"
+  );
 }

@@ -29,13 +29,35 @@ function getSchemeData(shemeName) {
 let adminPanel = new AdminPanelController(document.querySelector('main.content'));
 let adminTypes = adminPanel.Types;
 
-adminPanel.addScheme('characters', [{
-  type: adminTypes.STRING
-  // getData: container => { // for own object
-  //   container
-  // }
-}]);
+let CharacterSchema = adminPanel.addScheme('characters', {
+  name: {
+    type: adminTypes.STRING
+  },
+  pseudo_name: {
+    type: adminTypes.STRING
+  },
+  universe: {
+    type: adminTypes.STRING
+  }
+}, schema_data => {
+  schema_data = "Hello, World!";
+});
 
-adminPanel.addScheme('comics');
+CharacterSchema.addOperation('create', { visible: ['name', 'pseudo_name'] });
+CharacterSchema.addOperation('edit', { unwritable: ['universe'] }, {
+  afterCreate: (fields) => {
+    field.forEach(field => setData(field));
+  },
+});
+CharacterSchema.addOperation('delete', { invisible: ['name'], modal: true, open_text: "you realy want to delete this character?"});
+
+let UserSchema = adminPanel.addScheme('users');
+let ComicsChema = adminPanel.addScheme('comics');
+let MovieSchema = adminPanel.addScheme('movies');
+let TVChema = adminPanel.addScheme('tv');
+let NewsChema = adminPanel.addScheme('news');
+let GoodSchema = adminPanel.addScheme('goods');
+let VideoChema = adminPanel.addScheme('videos');
+let ImageSchema = adminPanel.addScheme('images');
 
 adminPanel.init();
