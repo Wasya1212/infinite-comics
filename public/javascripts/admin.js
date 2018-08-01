@@ -39,8 +39,13 @@ let CharacterSchema = adminPanel.addScheme('characters', {
   universe: {
     type: adminTypes.STRING
   }
-}, schema_data => {
-  schema_data = "Hello, World!";
+}, () => {
+  fetch('/characters/get', { method: 'POST' })
+    .then(response => {
+      console.log(response.json());
+      return response.json();
+    })
+    .then(data => data);
 });
 
 CharacterSchema.addOperation('create', { visible: ['name', 'pseudo_name'] });
@@ -50,6 +55,10 @@ CharacterSchema.addOperation('edit', { unwritable: ['universe'] }, {
   },
 });
 CharacterSchema.addOperation('delete', { invisible: ['name'], modal: true, open_text: "you realy want to delete this character?"});
+
+console.log("DELETE:", CharacterSchema.use('delete'));
+console.log("EDIT:", CharacterSchema.use('edit'));
+console.log("CREATE:", CharacterSchema.use('create'));
 
 let UserSchema = adminPanel.addScheme('users');
 let ComicsChema = adminPanel.addScheme('comics');

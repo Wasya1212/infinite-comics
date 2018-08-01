@@ -53,7 +53,7 @@ module.exports = (app) => {
 
   // characters
   app.get('/characters', charactersRouter.get);
-  app.post('/characters/all', charactersRouter.post);
+  app.post('/characters/get', charactersRouter.post);
   app.put('/characters/create', charactersRouter.put);
 
   // app.post('/user', userRouter.post);

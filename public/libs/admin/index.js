@@ -74,10 +74,11 @@ class AdminPanelTypes {
 }
 
 class AdminScheme {
-  constructor(name, container) {
+  constructor(name, getBaseData) {
     this.name = name;
     this.field = Object.create(null);
-    this.$_container = container;
+    this.operations = Object.create(null);
+    this.getBaseData = getBaseData;
   }
 
   addField(admin_type, name) {
@@ -104,6 +105,15 @@ class AdminScheme {
     // }
   }
 
+  setData() {
+    let data = this.getBaseData();
+    
+    for (let key in this.field) {
+      this.field[key].value = data[key].toString();
+      console.log(key);
+    }
+  }
+
   getData() {
     let data = Object.create(null);
 
@@ -112,6 +122,43 @@ class AdminScheme {
     }
 
     return data;
+  }
+
+  addOperation(operation_name, options = {}) {
+    let fields = Object.assign({}, this.field);
+
+    if (options.visible) {
+      fields = {};
+      options.visible.forEach(field => {
+        fields[field] = this.field[field];
+      }, this);
+    }
+
+    if (options.invisible) {
+      options.invisible.forEach(field => {
+        delete fields[field];
+      });
+    }
+
+    if (options.unwritable) {
+      options.unwritable.forEach(field => {
+        fields[field].dom_view.classList.add('unwritable');
+      });
+    }
+
+    this.operations[operation_name] = {
+      getFields() {
+        return fields;
+      }
+    }
+  }
+
+  use(operation_name) {
+    if (!this.operations[operation_name]) {
+      throw Error(`Operation ${operation_name} in ${this.name} scheme is not defined`);
+    }
+
+    return this.operations[operation_name].getFields();
   }
 }
 
@@ -144,12 +191,12 @@ class AdminPanelController {
     this.scheme = Object.create(null);
   }
 
-  addScheme(scheme_name, scheme_fields = {}) {
+  addScheme(scheme_name, scheme_fields = {}, baseData) {
     if (!scheme_name) {
       throw Error("Plese enter scheme name");
     };
 
-    this.scheme[scheme_name] = new AdminScheme(scheme_name);
+    this.scheme[scheme_name] = new AdminScheme(scheme_name, baseData);
 
     for (let field in scheme_fields) {
       if (!this.types.checkType(scheme_fields[field].type)) {
@@ -170,15 +217,19 @@ class AdminPanelController {
 
     let $_shemes_menu = this.buildSidePanel();
     let $_schema_data = this.getSchemaData(this.Schemes['characters']);
+    let $_schema_operations = this.buildOperationsPanel(this.Schemes['characters']);
 
     this.$_schema_container = document.createElement('section');
     this.$_data_container = document.createElement('section');
+    this.$_operations_container = document.createElement('aside');
 
     this.$_schema_container.appendChild($_shemes_menu);
     this.$_data_container.appendChild($_schema_data);
+    this.$_operations_container.appendChild($_schema_operations);
 
     this.$_container.appendChild(this.$_schema_container);
     this.$_container.appendChild(this.$_data_container);
+    this.$_container.appendChild(this.$_operations_container);
   }
 
   buildSidePanel() {
@@ -195,10 +246,24 @@ class AdminPanelController {
     return $_schemes_panel;
   }
 
+  buildOperationsPanel(schema) {
+    let $_operations_panel = document.createElement('ul');
+    $_operations_panel.classList.add('admin-schemes');
+
+    Object.keys(schema.operations).forEach(operation => {
+      let $_operation_block = document.createElement('li');
+      console.log(operation);
+      $_operation_block.textContent = operation;
+      $_operations_panel.appendChild($_operation_block);
+    });
+
+    return $_operations_panel;
+  }
+
   getSchemaData(schema) {
     let $_data_grid = document.createElement('h1');
 
-    console.log(schema);
+    schema.setData();
 
     $_data_grid.textContent = "hello world";
     return $_data_grid;
