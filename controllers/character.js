@@ -4,14 +4,23 @@ const Character = require('../models/character');
 
 class CharacterController {
   constructor() {
-    this.tableName = Character.getTableName;
-    this.findOne = Character.findOne;
-    this.findAll = Character.findAll;
-    this.findById = Character.findById;
+    this.tableName = Character.getTableName();
   }
 
   save(conditions) {
     return Character.create(conditions);
+  }
+
+  findById(id) {
+    Character.findById(id);
+  }
+
+  findOne() {
+    return Character.findOne();
+  }
+
+  findAll(conditions) {
+    return Character.findAll(conditions);
   }
 
   findByName(name) {

@@ -13,14 +13,10 @@ let Character = mysql.define('characters', {
     defaultValue: 'uknown'
   },
   image: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: false,
-      min: {
-        args: [0],
-        msg: "Image id must be unsigned value"
-      }
+      notEmpty: false
     }
   },
   universe: {

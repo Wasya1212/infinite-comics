@@ -39,13 +39,18 @@ let CharacterSchema = adminPanel.addScheme('characters', {
   universe: {
     type: adminTypes.STRING
   }
-}, () => {
+}, next => {
   fetch('/characters/get', { method: 'POST' })
     .then(response => {
-      console.log(response.json());
-      return response.json();
+      response.json();
     })
-    .then(data => data);
+    .then(data => {
+      next(data);
+    })
+    .catch(err => {
+      console.error("server error", err);
+      next([]);
+    });
 });
 
 CharacterSchema.addOperation('create', { visible: ['name', 'pseudo_name'] });

@@ -105,13 +105,29 @@ class AdminScheme {
     // }
   }
 
-  setData() {
-    let data = this.getBaseData();
-    
-    for (let key in this.field) {
-      this.field[key].value = data[key].toString();
-      console.log(key);
+  setData(options = {}) {
+    if (options.beforeCreate) {
+      options.beforeCreate();
     }
+
+    let getShemaData = new Promise((resolve, reject) => {
+      this.getBaseData(resolve);
+    });
+
+    getShemaData
+      .then(data => {
+        console.log("DATA:", data);
+        data.forEach(element => {
+          for (let key in this.field) {
+            this.field[key].value = data[key].toString() || 'NULL';
+            console.log(key);
+          }
+        }, this);
+
+        if (options.afterCreate) {
+          options.afterCreate(this.field);
+        }
+      });
   }
 
   getData() {

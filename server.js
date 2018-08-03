@@ -10,6 +10,7 @@ const passport = require('./libs/passport');
 const session = require('express-session');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
+const ErrorHandler = require('./middleware/error-handler');
 const PORT = process.env.PORT || 3000;
 
 cloudinary.config({
@@ -214,10 +215,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(function(err, req, res, next) {
-    console.log(err);
-});
-
 // user
 // app.get('/user', (req, res) => {
 //   res.set('Content-Type', 'text/html');
@@ -254,6 +251,10 @@ app.use(function(err, req, res, next) {
 // });
 
 require('./routes/index')(app);
+
+app.use(ErrorHandler.sqlHandle());
+
+app.use(ErrorHandler.handle());
 
 // app.get('/logout', function(req, res) {
 //   console.log('logout', req.session);

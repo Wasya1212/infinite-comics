@@ -12,6 +12,14 @@ class UserController {
     return User.create(conditions);
   }
 
+  find(conditions) {
+    return User.find(conditions);
+  }
+
+  findAll() {
+    return User.findAll({});
+  }
+
   findById(id) {
     return User.findById(id);
   }
