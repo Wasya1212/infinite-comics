@@ -79,6 +79,7 @@ class AdminScheme {
     this.field = Object.create(null);
     this.operations = Object.create(null);
     this.getBaseData = getBaseData;
+    this.fields = [];
   }
 
   addField(admin_type, name) {
@@ -106,6 +107,8 @@ class AdminScheme {
   }
 
   setData(options = {}) {
+    this.fields = [];
+
     if (options.beforeCreate) {
       options.beforeCreate();
     }
@@ -114,19 +117,24 @@ class AdminScheme {
       this.getBaseData(resolve);
     });
 
-    getShemaData
+    return getShemaData
       .then(data => {
-        console.log("DATA:", data);
         data.forEach(element => {
+          let fullField = Object.create(null);
+
           for (let key in this.field) {
-            this.field[key].value = data[key].toString() || 'NULL';
-            console.log(key);
+            this.field[key].value = element[key] || 'NULL';
+            fullField[key] = this.field[key];
           }
+
+          this.fields.push(fullField);
         }, this);
 
         if (options.afterCreate) {
           options.afterCreate(this.field);
         }
+
+        return this.fields;
       });
   }
 
@@ -277,11 +285,46 @@ class AdminPanelController {
   }
 
   getSchemaData(schema) {
-    let $_data_grid = document.createElement('h1');
+    let $_data_grid = document.createElement('table');
+    let $_data_grid_items_title_container = document.createElement('tr');
 
-    schema.setData();
+    $_data_grid.classList.add('database-view');
 
-    $_data_grid.textContent = "hello world";
+    for (let key in schema.field) {
+      let $_data_grid_item_title = document.createElement('th');
+      $_data_grid_item_title.classList.add('database-item-title');
+      $_data_grid_item_title.textContent = key.toString();
+
+      $_data_grid_items_title_container.appendChild($_data_grid_item_title);
+    }
+
+    $_data_grid.appendChild($_data_grid_items_title_container);
+
+    schema.setData()
+      .then(fields => {
+        fields.forEach(field => {
+          let $_data_grid_items_container = document.createElement('tr');
+
+          for (let key in field) {
+            let $_data_grid_item = document.createElement('td');
+            $_data_grid_item.classList.add('database-item');
+
+            let $_grid_item_column = document.createElement('span');
+            $_grid_item_column.classList.add('database-item-column');
+            $_grid_item_column.textContent = field[key].value;
+
+            $_data_grid_item.appendChild($_grid_item_column);
+
+            $_data_grid_items_container.appendChild($_data_grid_item);
+          }
+
+          $_data_grid.appendChild($_data_grid_items_container);
+        });
+
+        // console.log("SUCCESS");
+        // console.log("FIELDS:", fields);
+      });
+
     return $_data_grid;
   }
 

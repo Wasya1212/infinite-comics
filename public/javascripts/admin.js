@@ -42,14 +42,14 @@ let CharacterSchema = adminPanel.addScheme('characters', {
 }, next => {
   fetch('/characters/get', { method: 'POST' })
     .then(response => {
-      response.json();
+      return response.json();
     })
     .then(data => {
       next(data);
     })
     .catch(err => {
       console.error("server error", err);
-      next([]);
+      next([{name: {xx: 'sss', xxxx: 'ssss'}}, {'name': 'dsa'}]);
     });
 });
 
