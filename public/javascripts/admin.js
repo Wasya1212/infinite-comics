@@ -49,7 +49,7 @@ let CharacterSchema = adminPanel.addScheme('characters', {
     })
     .catch(err => {
       console.error("server error", err);
-      next([{name: {xx: 'sss', xxxx: 'ssss'}}, {'name': 'dsa'}]);
+      next([{name: {xx: 'sss', xxxx: 'ssss'}}, {'name': 'dsa'}, {name: ['das', 'fds']}]);
     });
 });
 

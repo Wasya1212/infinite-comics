@@ -74,7 +74,7 @@ class AdminPanelTypes {
 }
 
 class AdminScheme {
-  constructor(name, getBaseData) {
+  constructor(name, getBaseData = done => done([])) {
     this.name = name;
     this.field = Object.create(null);
     this.operations = Object.create(null);
@@ -120,15 +120,14 @@ class AdminScheme {
     return getShemaData
       .then(data => {
         data.forEach(element => {
-          let fullField = Object.create(null);
+          let fullField = Object.assign({}, this.field);
 
-          for (let key in this.field) {
-            this.field[key].value = element[key] || 'NULL';
-            fullField[key] = this.field[key];
+          for (let field_name in fullField) {
+            fullField[field_name] = Object.assign({}, fullField[field_name], { value: element[field_name] || 'NULL' });
           }
 
           this.fields.push(fullField);
-        }, this);
+        });
 
         if (options.afterCreate) {
           options.afterCreate(this.field);
@@ -191,6 +190,14 @@ class AdminPanelController {
     // parent element for all contoller DOM elements
     this.$_container = $_container;
 
+    this.$_schema_container = document.createElement('section');
+    this.$_data_container = document.createElement('section');
+    this.$_operations_container = document.createElement('aside');
+
+    this.$_container.appendChild(this.$_schema_container);
+    this.$_container.appendChild(this.$_data_container);
+    this.$_container.appendChild(this.$_operations_container);
+
     // create control input types
     this.types = new AdminPanelTypes();
 
@@ -204,7 +211,11 @@ class AdminPanelController {
         return container.querySelector('input') || null;
       }
     });
-    this.types.declareType('Text', STRING_VIEW());
+    this.types.declareType('Text', STRING_VIEW(), {
+      getData: () => {
+        alert();
+      }
+    });
     this.types.declareType('Check', STRING_VIEW());
     this.types.declareType('MultiCheck', STRING_VIEW());
     this.types.declareType('File', STRING_VIEW());
@@ -237,23 +248,13 @@ class AdminPanelController {
   }
 
   init() {
-    this.clearMainContainer();
-
     let $_shemes_menu = this.buildSidePanel();
-    let $_schema_data = this.getSchemaData(this.Schemes['characters']);
+    let $_schema_data = this.buildSchemaDataTable(this.Schemes['characters']);
     let $_schema_operations = this.buildOperationsPanel(this.Schemes['characters']);
-
-    this.$_schema_container = document.createElement('section');
-    this.$_data_container = document.createElement('section');
-    this.$_operations_container = document.createElement('aside');
 
     this.$_schema_container.appendChild($_shemes_menu);
     this.$_data_container.appendChild($_schema_data);
     this.$_operations_container.appendChild($_schema_operations);
-
-    this.$_container.appendChild(this.$_schema_container);
-    this.$_container.appendChild(this.$_data_container);
-    this.$_container.appendChild(this.$_operations_container);
   }
 
   buildSidePanel() {
@@ -262,8 +263,12 @@ class AdminPanelController {
 
     Object.keys(this.Schemes).forEach(scheme => {
       let $_scheme_switcher = document.createElement('li');
-
       $_scheme_switcher.textContent = scheme;
+      $_scheme_switcher.addEventListener('click', e => {
+        this.clearContainer(this.$_data_container);
+        this.$_data_container.appendChild(this.buildSchemaDataTable(this.Schemes[scheme]));
+      });
+
       $_schemes_panel.appendChild($_scheme_switcher);
     });
 
@@ -274,17 +279,48 @@ class AdminPanelController {
     let $_operations_panel = document.createElement('ul');
     $_operations_panel.classList.add('admin-schemes');
 
-    Object.keys(schema.operations).forEach(operation => {
+    for (let operation_key in schema.operations) {
       let $_operation_block = document.createElement('li');
-      console.log(operation);
-      $_operation_block.textContent = operation;
+      $_operation_block.textContent = operation_key;
+      $_operation_block.addEventListener('click', e => {
+        e.preventDefault();
+
+        this.clearContainer(this.$_data_container);
+        this.$_data_container.appendChild(this.buildOperationView(schema.use(operation_key)));
+      });
+
       $_operations_panel.appendChild($_operation_block);
-    });
+
+      console.log(schema.operations[operation_key].getFields());
+    }
+
+
 
     return $_operations_panel;
   }
 
-  getSchemaData(schema) {
+  buildOperationView(operationFields) {
+    let $_operation_section = document.createElement('div');
+    $_operation_section.classList.add('operation-section');
+
+    Object.keys(operationFields).forEach(field => {
+      let $_field_container = document.createElement('div');
+      $_field_container.classList.add('operation-section__field');
+
+      let $_field_title = document.createElement('div');
+      $_field_title.classList.add('operation-section__field-title');
+      $_field_title.textContent = field;
+
+      $_field_container.appendChild($_field_title);
+      $_field_container.appendChild(operationFields[field].dom_view);
+
+      $_operation_section.appendChild($_field_container);
+    }, this);
+
+    return $_operation_section;
+  }
+
+  buildSchemaDataTable(schema) {
     let $_data_grid = document.createElement('table');
     let $_data_grid_items_title_container = document.createElement('tr');
 
@@ -311,7 +347,7 @@ class AdminPanelController {
 
             let $_grid_item_column = document.createElement('span');
             $_grid_item_column.classList.add('database-item-column');
-            $_grid_item_column.textContent = field[key].value;
+            $_grid_item_column.textContent = JSON.stringify(field[key].value);
 
             $_data_grid_item.appendChild($_grid_item_column);
 
@@ -320,16 +356,13 @@ class AdminPanelController {
 
           $_data_grid.appendChild($_data_grid_items_container);
         });
-
-        // console.log("SUCCESS");
-        // console.log("FIELDS:", fields);
       });
 
     return $_data_grid;
   }
 
-  clearMainContainer() {
-    this.$_container.innerHTML = '';
+  clearContainer(container) {
+    container.innerHTML = '';
   }
 
   get Schemes() {
