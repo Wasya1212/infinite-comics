@@ -2,7 +2,6 @@ class AdminPanelTypes {
   constructor() {
     this.types = {};
     this.types_names = [];
-    this.dom_renderer_element = null;
   }
 
   get Types() {
@@ -58,7 +57,8 @@ class AdminPanelTypes {
       return {
         dom_view: $_elementContainer,
         getData: () => {
-          dom_params.getData($_elementContainer);
+          console.log(dom_params.getData($_elementContainer));
+          return dom_params.getData($_elementContainer);
         }
       };
     }
@@ -94,7 +94,7 @@ class AdminScheme {
     this.field[name].type_name = admin_type.name;
 
     let {dom_view, getData} = admin_type.createDOM();
-
+    console.log("getData:", getData());
     this.field[name].dom_view = dom_view;
     this.field[name].getData = getData;
 
@@ -137,16 +137,6 @@ class AdminScheme {
       });
   }
 
-  getData() {
-    let data = Object.create(null);
-
-    for (let field in this.field) {
-      data[field] = this.field[field].getData();
-    }
-
-    return data;
-  }
-
   addOperation(operation_name, options = {}) {
     let fields = Object.assign({}, this.field);
 
@@ -172,6 +162,15 @@ class AdminScheme {
     this.operations[operation_name] = {
       getFields() {
         return fields;
+      },
+      getData() {
+        let data = Object.create(null);
+
+        Object.keys(fields).forEach(field_name => {
+          data[field_name] = fields[field_name].getData();
+        });
+
+        return data;
       }
     }
   }
@@ -207,13 +206,15 @@ class AdminPanelController {
 
     this.types.declareType('String', STRING_VIEW(), {
       getData: container => {
-        console.log(container);
-        return container.querySelector('input') || null;
+        let $_data_container = container.querySelector('input');
+        let data = $_data_container.value;
+        // console.log(data);
+        return data || null;
       }
     });
     this.types.declareType('Text', STRING_VIEW(), {
-      getData: () => {
-        alert();
+      getData: data_container => {
+        alert(data_container);
       }
     });
     this.types.declareType('Check', STRING_VIEW());
@@ -286,20 +287,22 @@ class AdminPanelController {
         e.preventDefault();
 
         this.clearContainer(this.$_data_container);
-        this.$_data_container.appendChild(this.buildOperationView(schema.use(operation_key)));
+        this.$_data_container.appendChild(this.buildOperationView(schema.operations[operation_key]));
       });
 
       $_operations_panel.appendChild($_operation_block);
 
+
       console.log(schema.operations[operation_key].getFields());
+      console.log(schema.operations[operation_key].getData());
     }
-
-
 
     return $_operations_panel;
   }
 
-  buildOperationView(operationFields) {
+  buildOperationView(operation) {
+    let operationFields = operation.getFields();
+
     let $_operation_section = document.createElement('div');
     $_operation_section.classList.add('operation-section');
 
@@ -316,6 +319,15 @@ class AdminPanelController {
 
       $_operation_section.appendChild($_field_container);
     }, this);
+
+    let $_confirm_button = document.createElement('button');
+    $_confirm_button.textContent = "Confirm";
+    $_confirm_button.addEventListener('click', e => {
+      e.preventDefault();
+      console.log(operation.getData(), "ss");
+    });
+
+    $_operation_section.appendChild($_confirm_button);
 
     return $_operation_section;
   }
