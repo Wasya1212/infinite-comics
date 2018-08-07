@@ -56,10 +56,7 @@ class AdminPanelTypes {
 
       return {
         dom_view: $_elementContainer,
-        getData: () => {
-          console.log(dom_params.getData($_elementContainer));
-          return dom_params.getData($_elementContainer);
-        }
+        getData: dom_params.getData
       };
     }
   }
@@ -94,7 +91,7 @@ class AdminScheme {
     this.field[name].type_name = admin_type.name;
 
     let {dom_view, getData} = admin_type.createDOM();
-    console.log("getData:", getData());
+
     this.field[name].dom_view = dom_view;
     this.field[name].getData = getData;
 
@@ -123,7 +120,9 @@ class AdminScheme {
           let fullField = Object.assign({}, this.field);
 
           for (let field_name in fullField) {
-            fullField[field_name] = Object.assign({}, fullField[field_name], { value: element[field_name] || 'NULL' });
+            fullField[field_name] = Object.assign({}, fullField[field_name], {
+              value: element[field_name] || 'NULL'
+            });
           }
 
           this.fields.push(fullField);
@@ -158,6 +157,15 @@ class AdminScheme {
         fields[field].dom_view.classList.add('unwritable');
       });
     }
+
+    Object.keys(fields).forEach(field => {
+      let newDOM = fields[field].dom_view.cloneNode(true);
+      
+      fields[field] = Object.assign({}, fields[field], {
+        dom_view: newDOM,
+        getData: () => this.field[field].getData(newDOM)
+      });
+    });
 
     this.operations[operation_name] = {
       getFields() {
@@ -291,10 +299,6 @@ class AdminPanelController {
       });
 
       $_operations_panel.appendChild($_operation_block);
-
-
-      console.log(schema.operations[operation_key].getFields());
-      console.log(schema.operations[operation_key].getData());
     }
 
     return $_operations_panel;
