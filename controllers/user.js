@@ -32,6 +32,10 @@ class UserController {
     return User.findAll({ where: { username: username } });
   }
 
+  findByEmail(email) {
+    return User.findOne({ where: { email: email } });
+  }
+
   findOne(conditions) {
     return User.findOne({ where: conditions });
   }

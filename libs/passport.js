@@ -7,7 +7,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  console.log(id);
+  console.log('id');
   User.findById(id)
   .then(({dataValues: user}) => {
     done(null, user);
@@ -17,8 +17,11 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-passport.use(new LocalStrategy((username, password, done) => {
-  User.findByUsername(username)
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+}, (email, password, done) => {
+  User.findByEmail(email)
   .then((user) => {
     if (!user) {
       console.log("user not found");

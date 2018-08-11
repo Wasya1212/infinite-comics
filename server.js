@@ -12,6 +12,7 @@ const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const ErrorHandler = require('./middleware/error-handler');
 const PORT = process.env.PORT || 3000;
+const config = require('./config/default');
 
 cloudinary.config({
   cloud_name: 'dtquxmxcs',
@@ -23,14 +24,14 @@ let stream = cloudinary.v2.uploader.upload_stream(function(error, result){consol
 
 const Sequelize = require('sequelize');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const sequelize = new Sequelize('user271351_infinite_comics', 'user271351', 'tfp7cRRoug4D', {
-  host: '46.21.250.90',
+const sequelize = new Sequelize(config.db.mysql.name, config.db.mysql.username, config.db.mysql.password, {
+  host: config.db.mysql.host,
   dialect: 'mysql',
   operatorsAliases: Sequelize.Op,
   pool: {
-    max: 10,
-    min: 0,
-    idle: 100000
+    max: config.db.mysql.pool.maxPoolCount,
+    min: config.db.mysql.pool.minPoolCount,
+    idle: config.db.mysql.pool.maxID
   }
 });
 
