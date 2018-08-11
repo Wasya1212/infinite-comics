@@ -185,7 +185,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // login
-app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/user' }));
+// app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/user' }));
 
 // app.use(session({
 //   secret: 'AnoHana',

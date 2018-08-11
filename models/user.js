@@ -1,13 +1,21 @@
 const mysql = require('../libs/mysql');
 const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt-promise');
-
+// mysql.sync({ force: true });
 let User = mysql.define('users', {
   username: {
     type: Sequelize.STRING,
-    unique: true,
     allowNull: false,
     validate: { notEmpty: { msg: "username is required" } }
+  },
+  email: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+    validate: {
+      notEmpty: { msg: "email is required" },
+      isEmail: { msg: 'email is invalid' }
+    }
   },
   password: {
     type: Sequelize.STRING,

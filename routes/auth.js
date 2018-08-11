@@ -1,4 +1,5 @@
 const passport = require('../libs/passport')
+const User = require('../controllers/user');
 
 module.exports.checkAuth = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -10,21 +11,29 @@ module.exports.checkAuth = (req, res, next) => {
 
 module.exports.authorize = {
   get: (req, res) => {
-
+    res.set('Content-Type', 'text/html');
+    res.render('sign_up.pug');
   },
   post: (req, res) => {
-
+    User
+      .save({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email
+      })
+      .then(newUser => {
+        console.log(newUser);
+        res.redirect('/login');
+      });
   }
 }
 
 module.exports.login = {
   get: (req, res) => {
     res.set('Content-Type', 'text/html');
-    res.render('create_user.pug');
+    res.render('sign_in.pug');
   },
-  post: (req, res) => {
-
-  }
+  post: passport.authenticate('local', { successRedirect: '/', failureRedirect: '/user' })
 }
 
 module.exports.logout = (req, res) => {

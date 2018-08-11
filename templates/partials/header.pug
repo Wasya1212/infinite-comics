@@ -4,7 +4,8 @@ mixin header(items)
       +e.A.logo-icon-link.main-icon(href="/")
         +e.IMG.icon(src="images/logo/logo.png", alt="my-site.com")
     +e.NAV.navigation
-      if !user || !user.admin
+      - var user = user || {}
+      if user && user.admin
         +e.A.nav-item.item(href="/admin")
           +e.SPAN admin panel
       each item in items
@@ -31,4 +32,4 @@ mixin header(items)
                 +e.A(href="/logout") Logout
         else
           +e.A.login-btn.button(href="/login") Login
-          +e.A.registration-btn.button(href="/registration") Sign up
+          +e.A.registration-btn.button(href="/sign-up") Sign up

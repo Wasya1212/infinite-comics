@@ -7,11 +7,9 @@ block vars
 block vendors
   link(rel="stylesheet", href="stylesheets/style.css")
 
-
-
 block content
   +b.MAIN.content
-    +b.FORM.sign-up#sign-up-form(action="/login", method="POST")
+    +b.FORM.sign-up#sign-up-form(action="/sign-up", method="POST")
       +e.P
         +e.LABEL.label Username
         +e.INPUT.username#username-input(name="username")
@@ -19,12 +17,7 @@ block content
         +e.LABEL.label Password
         +e.INPUT.password#password-input(name="password", type="password")
       +e.P
-        +e.LABEL.label Nickname
-        +e.INPUT.password#nickname-input(name="nickname")
-      +e.P
         +e.LABEL.label Email
         +e.INPUT.image#email-input(name="email", type="email")
       +e.P
-        +e.INPUT(type="submit", value="sign up")
-        //- button submits
-        
+        +e.INPUT(type="submit", value="sign up")      

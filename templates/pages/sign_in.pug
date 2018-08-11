@@ -1,0 +1,20 @@
+extends ../layout/default
+
+block vars
+  -
+    var page = {title: "comics"};
+
+block vendors
+  link(rel="stylesheet", href="stylesheets/style.css")
+
+block content
+  +b.MAIN.content
+    +b.FORM.sign-in#sign-in-form(action="/login", method="POST")
+      +e.P
+        +e.LABEL.label Email
+        +e.INPUT.image#email-input(name="email", type="email")
+      +e.P
+        +e.LABEL.label Password
+        +e.INPUT.password#password-input(name="password", type="password")
+      +e.P
+        +e.INPUT(type="submit", value="sign in")        

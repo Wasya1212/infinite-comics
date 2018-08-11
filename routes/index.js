@@ -24,11 +24,15 @@ const adminRouter = require('./admin');
 module.exports = (app) => {
   // authentication
   app.get('/login', authRouter.login.get);
-  // app.post('/login', authRouter.login);
-  app.get('/logout', authRouter.logout);
+  app.post('/login', authRouter.login.post);
+  app.get('/sign-up', authRouter.authorize.get);
+  app.post('/sign-up', authRouter.authorize.post);
 
   // check auth
   app.get('/*', authRouter.checkAuth);
+
+  // end session
+  app.get('/logout', authRouter.logout);
 
   // frontpage
   app.get('/', frontpageRouter.get);
