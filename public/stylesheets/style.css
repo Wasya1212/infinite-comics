@@ -1,3 +1,21 @@
+.profile__container .button {
+  display: inline-block;
+  padding: .5rem 1rem;
+  border-radius: 3px;
+  border: 1px solid white;
+  margin: 0 .5rem;
+  color: white;
+  font-size: 12px;
+}
+
+.profile__container .profile__registration-btn {
+  background-color: black;
+}
+
+.profile__container .profile__login-btn{
+  background-color: #f72f02;
+}
+
 .hidden {
   display: none;
 }

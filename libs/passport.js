@@ -3,11 +3,12 @@ const LocalStrategy = require('passport-local');
 const User = require('../controllers/user');
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  console.log("USER:", user)
+  done(null, user.uuid);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('id');
+  console.log("USER ID:", id);
   User.findById(id)
   .then(({dataValues: user}) => {
     done(null, user);

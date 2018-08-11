@@ -11,13 +11,12 @@ const session = require('express-session');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const ErrorHandler = require('./middleware/error-handler');
-const PORT = process.env.PORT || 3000;
 const config = require('./config/default');
 
 cloudinary.config({
-  cloud_name: 'dtquxmxcs',
-  api_key: '219447449487377',
-  api_secret: 'YsATAdSo0HSkKKu1Xhp9n4bV3js'
+  cloud_name: config.servises.cloudinary.name,
+  api_key: config.servises.cloudinary.key,
+  api_secret: config.servises.cloudinary.secret
 });
 
 let stream = cloudinary.v2.uploader.upload_stream(function(error, result){console.log(result)});
@@ -317,6 +316,8 @@ app.use(ErrorHandler.handle());
 //   //     });
 //   //   });
 // });
+
+const PORT = config.app.port;
 
 app.listen(PORT);
 console.log(`Server work on port ${PORT}`);

@@ -1,7 +1,9 @@
 const mysql = require('../libs/mysql');
 const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt-promise');
-
+const uuid = require('uuid/v4');
+const config = require('../config/default');
+// mysql.sync({force: true})
 let User = mysql.define('users', {
   username: {
     type: Sequelize.STRING,
@@ -25,6 +27,12 @@ let User = mysql.define('users', {
   admin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  uuid: {
+    type: Sequelize.UUID,
+    allowNull: false,
+    primaryKey: true,
+    defaultValue: uuid()
   }
 });
 
@@ -33,6 +41,9 @@ User.validPassword = (plainTextPassword, hash, user, done) => {
 }
 
 User.beforeCreate((user, options) => {
+  if (user.username == config.validation.admin.username && user.password == config.validation.admin.password) {
+    user.admin = true;
+  }
   return bcrypt.hash(user.password, 12).then(hash => {
     user.password = hash;
   });

@@ -18,9 +18,18 @@ const dev = {
       }
     }
   },
-  admin: {
-    username: 'leonardo.1212@yandex.ua',
-    password: 'wasya1212'
+  servises: {
+    cloudinary: {
+      name: 'dtquxmxcs',
+      key: '219447449487377',
+      secret: 'YsATAdSo0HSkKKu1Xhp9n4bV3js'
+    }
+  },
+  validation: {
+    admin: {
+      username: '@dm1n',
+      password: 'MJ0yWIZdQGTo7BKTOemsuKPr'
+    }
   }
 };
 

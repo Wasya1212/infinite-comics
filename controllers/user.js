@@ -21,7 +21,7 @@ class UserController {
   }
 
   findById(id) {
-    return User.findById(id);
+    return User.findOne({ where: { uuid: id } });
   }
 
   findByUsername(username) {
@@ -38,6 +38,12 @@ class UserController {
 
   findOne(conditions) {
     return User.findOne({ where: conditions });
+  }
+
+  selectPublicInfo(user) {
+    let cleanUser = Object.assign(user);
+    delete cleanUser.id;
+    return cleanUser;
   }
 }
 
