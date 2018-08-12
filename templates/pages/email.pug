@@ -1,0 +1,23 @@
+extends ../layout/email
+
+mixin confirmRegistration(username, password, confirm_link)
+  h2.main-title Confirm registration
+  p Hello #{username},
+  p.
+    Thank you for registering at 
+    <a href="http://localhost:3000">Infinite-comics.com</a>.
+    Your account is created and must be activated before you can use it.
+    To activate the account on the following link or copy-paste it in your browser:
+    #{confirm_link}
+  p.
+    After activation you may login to http://localhost:3000/login using the following username and password:
+  p
+    strong Username
+    span= username
+  p
+    strong Password
+    span= password
+
+block content
+  if (mailType == 'confirm')
+    +confirmRegistration(username, password, confirmLink)

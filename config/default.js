@@ -1,8 +1,22 @@
+const path = require('path');
+
 const env = process.env.NODE_ENV;
 
 const dev = {
   app: {
     port: parseInt(process.env.DEV_APP_PORT) || 3000
+  },
+  email: {
+    username: 'leonardo.1212',
+    password: '0973079548',
+    serviceName: 'Yandex',
+    addressName: 'leonardo.1212@yandex.ua',
+    template: {
+      type: 'pug',
+      fileName: 'email',
+      foulderPath: path.resolve(__dirname, '../templates/pages'),
+      fullPath: path.resolve(__dirname, '../templates/pages/email.pug')
+    }
   },
   db: {
     mysql: {
