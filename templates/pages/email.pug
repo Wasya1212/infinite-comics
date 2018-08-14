@@ -10,13 +10,15 @@ mixin confirmRegistration(username, password, confirm_link)
     To activate the account on the following link or copy-paste it in your browser:
     #{confirm_link}
   p.
-    After activation you may login to http://localhost:3000/login using the following username and password:
+    After activation you may login to #{confirmLink} using the following username and password:
   p
     strong Username
     span= username
   p
     strong Password
     span= password
+  p.
+    If you not try to register on our web site, follow this link: #{cancelLink}
 
 block content
   if (mailType == 'confirm')

@@ -29,27 +29,23 @@ transporter.verify(function(error, success) {
    }
 });
 
-let mailOptions = {
-  from: config.email.addressName,
-  to: 'wasya1212cool@gmail.com',
-  subject: 'Infinite comics - configm registration',
-  html: letterTemplate({
-    mailType: 'confirm',
-    username: 'admin',
-    password: 'root',
-    confirmLink: 'https://google.com'
-  })
-};
-
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
+function getConfirmMailOptions(req, user) {
+  return {
+    from: config.email.addressName,
+    to: user.email,
+    subject: 'Infinite comics - confirm registration',
+    html: letterTemplate({
+      mailType: 'confirm',
+      username: user.username,
+      password: user.password,
+      confirmLink: `${req.protocol}://${req.get('host')}/sign-up/control?confirm=true&userId=${user.uuid}`,
+      cancelLink: `${req.protocol}://${req.get('host')}/sign-up/control?confirm=false&userId=${user.uuid}`
+    })
+  };
+}
 
 module.exports.checkAuth = (req, res, next) => {
+  console.log(req.session);
   if (!req.isAuthenticated()) {
     console.log("CHECK AUTH FALSE");
     res.redirect('/login');
@@ -66,7 +62,7 @@ module.exports.authorize = {
       user: req.user
     });
   },
-  post: (req, res) => {
+  post: (req, res, next) => {
     User
       .save({
         username: req.body.username,
@@ -74,8 +70,44 @@ module.exports.authorize = {
         email: req.body.email
       })
       .then(newUser => {
+        return new Promise((resolve, reject) => {
+          transporter.sendMail(getConfirmMailOptions(req, newUser), (err, info) => {
+            if (err) {
+              reject(err);
+            }
+            resolve(info);
+          });
+        });
+      })
+      .then(info => {
+        console.log('Email sent: ' + info.response);
         res.redirect('/login');
       });
+  },
+  confirm: (req, res, next) => {
+    if (req.params.confirm == false || !req.params.confirm) {
+      return next();
+    }
+
+    User
+      .updateById(req.params.id, { confirmed: true })
+      .then(user => {
+        console.log("CONFIRM:", user);
+      });
+  },
+  cancel: (req, res, next) => {
+    if (req.params.confirm == true || !req.params.confirm) {
+      return next();
+    }
+
+    User
+      .deleteById(req.params.id)
+      .then(user => {
+        console.log("DELETE:", user);
+      });
+  },
+  restore: () => {
+
   }
 }
 
@@ -87,18 +119,7 @@ module.exports.login = {
       user: req.user
     });
   },
-  post: function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-      if (err) { return next(err); }
-      if (!user) { return res.redirect('/login'); }
-      req.logIn(user, function(err) {
-        if (err) { return next(err); }
-        console.log("USER IS AUTHENTICATED");
-        return res.redirect('/');
-      });
-    })(req, res, next);
-  }
-  // post: passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' })
+  post: passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' })
 }
 
 module.exports.logout = (req, res) => {

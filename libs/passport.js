@@ -14,7 +14,7 @@ passport.deserializeUser((id, done) => {
     done(null, user);
   })
   .catch(err => {
-    done(err, null);
+    done(null, null);
   });
 });
 

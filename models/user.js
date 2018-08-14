@@ -33,6 +33,10 @@ let User = mysql.define('users', {
     allowNull: false,
     primaryKey: true,
     defaultValue: uuid()
+  },
+  confirmed: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 });
 

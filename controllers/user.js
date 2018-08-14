@@ -45,6 +45,14 @@ class UserController {
     delete cleanUser.id;
     return cleanUser;
   }
+
+  updateById(id, conditions) {
+    return User.update(conditions, { where: { uuid: id } });
+  }
+
+  deleteById(id) {
+    return User.destroy({ where: { uuid: id } });
+  }
 }
 
 module.exports = new UserController();
