@@ -56,7 +56,8 @@ class AdminPanelTypes {
 
       return {
         dom_view: $_elementContainer,
-        getData: dom_params.getData
+        getData: dom_params.getData,
+        setData: dom_params.setData
       };
     }
   }
@@ -90,10 +91,11 @@ class AdminScheme {
     this.field[name].title = name;
     this.field[name].type_name = admin_type.name;
 
-    let {dom_view, getData} = admin_type.createDOM();
+    let {dom_view, getData, setData} = admin_type.createDOM();
 
     this.field[name].dom_view = dom_view;
     this.field[name].getData = getData;
+    this.field[name].setData = setData;
 
     // this.field[name].validation = function() {
     //   this.dom_view.onChange(function(e) {
@@ -136,7 +138,7 @@ class AdminScheme {
       });
   }
 
-  addOperation(operation_name, options = {}) {
+  addOperation(operation_name, options = {}, process_data = () => {}) {
     let fields = Object.assign({}, this.field);
 
     if (options.visible) {
@@ -160,10 +162,11 @@ class AdminScheme {
 
     Object.keys(fields).forEach(field => {
       let newDOM = fields[field].dom_view.cloneNode(true);
-      
+
       fields[field] = Object.assign({}, fields[field], {
         dom_view: newDOM,
-        getData: () => this.field[field].getData(newDOM)
+        getData: () => this.field[field].getData(newDOM),
+        setData: data => this.field[field].setData(newDOM, data)
       });
     });
 
@@ -179,7 +182,20 @@ class AdminScheme {
         });
 
         return data;
-      }
+      },
+      processData() {
+        process_data(this.getData());
+      },
+      insertData(data) {
+        Object.keys(data).forEach(field_name => {
+          try {
+            fields[field_name].setData(data[field_name]);
+          } catch (e) {
+            console.error(`Field '${field_name}' doesn't exists in ${operation_name} operation.`);
+          }
+        });
+      },
+      afterCreate: options.afterCreate || function() {}
     }
   }
 
@@ -218,6 +234,10 @@ class AdminPanelController {
         let data = $_data_container.value;
         // console.log(data);
         return data || null;
+      },
+      setData: (container, data) => {
+        let $_data_container = container.querySelector('input');
+        $_data_container.value = data;
       }
     });
     this.types.declareType('Text', STRING_VIEW(), {
@@ -328,10 +348,12 @@ class AdminPanelController {
     $_confirm_button.textContent = "Confirm";
     $_confirm_button.addEventListener('click', e => {
       e.preventDefault();
-      console.log(operation.getData(), "ss");
+      operation.processData();
     });
 
     $_operation_section.appendChild($_confirm_button);
+
+    operation.afterCreate(operation);
 
     return $_operation_section;
   }

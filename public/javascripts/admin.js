@@ -53,11 +53,14 @@ let CharacterSchema = adminPanel.addScheme('characters', {
     });
 });
 
-CharacterSchema.addOperation('create', { visible: ['name', 'pseudo_name'] });
-CharacterSchema.addOperation('edit', { unwritable: ['universe'] }, {
-  afterCreate: (fields) => {
-    field.forEach(field => setData(field));
-  },
+CharacterSchema.addOperation('create', { visible: ['name', 'pseudo_name'] }, data => {
+  console.log("OPERATION DATA:", data);
+});
+CharacterSchema.addOperation('edit', {
+  unwritable: ['universe'],
+  afterCreate: operation => {
+    operation.insertData({ name: 'wasya1212' });
+  }
 });
 CharacterSchema.addOperation('delete', { invisible: ['name'], modal: true, open_text: "you realy want to delete this character?"});
 

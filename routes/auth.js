@@ -85,6 +85,7 @@ module.exports.authorize = {
       });
   },
   confirm: (req, res, next) => {
+    console.log("UPDATE");
     if (req.params.confirm == false || !req.params.confirm) {
       return next();
     }
@@ -96,6 +97,7 @@ module.exports.authorize = {
       });
   },
   cancel: (req, res, next) => {
+    console.log("DELETE");
     if (req.params.confirm == true || !req.params.confirm) {
       return next();
     }
@@ -114,7 +116,7 @@ module.exports.authorize = {
 module.exports.login = {
   get: (req, res) => {
     res.set('Content-Type', 'text/html');
-    console.log(req.headers);
+    console.log(req.user);
     res.render('sign_in.pug', {
       user: req.user
     });

@@ -27,7 +27,7 @@ module.exports = (app) => {
   app.post('/login', authRouter.login.post);
   app.get('/sign-up', authRouter.authorize.get);
   app.post('/sign-up', authRouter.authorize.post);
-  app.post('/sign-up/control', authRouter.authorize.confirm, authRouter.authorize.cancel);
+  app.get('/sign-up/control', authRouter.authorize.confirm, authRouter.authorize.cancel);
 
   // check auth
   app.get('/*', authRouter.checkAuth);
